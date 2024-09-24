@@ -1,8 +1,29 @@
 #main-site {
-    background-image: url("../img/cat\ hotel.jpg");
     height: 100%;
 }
 
-body {
+html, body {
+    background-image: url("../img/cat\ hotel.jpg");
+    background-size: 100% 100%;
     height: 100%;
+    margin: 0;
+}
+
+.content {
+    border: 0.2em solid black;
+    background-color: white;
+    width: fit-content;
+}
+
+.owner-div {
+    float: left;
+    margin: 0.2em;
+}
+
+#password-label {
+    color: red;
+}
+
+.margin-bottom {
+    margin-bottom: 0.3em;
 }

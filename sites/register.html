@@ -2,49 +2,52 @@
 <html lang="en">
 
 <head>
+    <title>Document</title>
+    <link rel="stylesheet" href="../resources/css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 </head>
 
 <body>
     <main>
-        <a href="Index.html">Zurück zu der Startseite</a>
-        <form method="post">
-            <div>
-                <label for="anrede">Anrede:</label>
-                <select name="anrede" id="anrede">
-                    <option value="herr">Herr</option>
-                    <option value="frau">Frau</option>
-                    <option value="divers">Divers</option>
-                </select>
-            </div>
-            <div>
-                <label for="vorname">Vorname:</label>
-                <input name="vorname" id="vorname" required>
-            </div>
-            <div>
-                <label for="nachname">Nachname:</label>
-                <input name="nachname" id="nachname" required>
-            </div>
-            <div>
-                <label for="email">Email-Adresse:</label>
-                <input name="email" type="email" id="email" required>
-            </div>
-            <div>
-                <label for="username">Username:</label>
-                <input name="username" id="username" required>
-            </div>
-            <div>
-                <label for="passwort">Passwort:</label>
-                <input name="passwort" type="password" id="passwort" required>
-            </div>
-            <div>
-                <label for="passwortWiederholen">Passwort wiederholen:</label>
-                <input name="passwortWiederholen" type="password" id="passwortWiederholen" required>
-            </div>
-            <button type="submit">Registrieren</button>
-        </form>
+        <div class="content">
+            <a href="Index.html">Zurück zu der Startseite</a>
+            <form method="post">
+                <div class="margin-bottom">
+                    <label for="anrede">Anrede:</label>
+                    <select name="anrede" id="anrede">
+                        <option value="herr">Herr</option>
+                        <option value="frau">Frau</option>
+                        <option value="divers">Divers</option>
+                    </select>
+                </div>
+                <div class="margin-bottom">
+                    <label for="vorname">Vorname:</label>
+                    <input name="vorname" id="vorname" required>
+                </div>
+                <div class="margin-bottom">
+                    <label for="nachname">Nachname:</label>
+                    <input name="nachname" id="nachname" required>
+                </div>
+                <div class="margin-bottom">
+                    <label for="email">Email-Adresse:</label>
+                    <input name="email" type="email" id="email" required>
+                </div>
+                <div class="margin-bottom">
+                    <label for="username">Username:</label>
+                    <input name="username" id="username" required>
+                </div>
+                <div class="margin-bottom">
+                    <label for="passwort">Passwort:</label>
+                    <input name="passwort" type="password" id="passwort" required>
+                </div>
+                <div class="margin-bottom">
+                    <label for="passwortWiederholen">Passwort wiederholen:</label>
+                    <input name="passwortWiederholen" type="password" id="passwortWiederholen" required>
+                </div>
+                <button type="submit">Registrieren</button>
+            </form>
+        </div>
     </main>
 </body>
 
