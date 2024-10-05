@@ -12,12 +12,19 @@ html, body {
 .content {
     border: 0.2em solid black;
     background-color: white;
-    width: fit-content;
+    margin: 5px;
+    padding: 5px;
+    overflow: hidden;
 }
 
 .owner-div {
-    float: left;
+    /* float: left; */
     margin: 0.2em;
+}
+
+.owner-image {
+    max-width:100%;
+    max-height:100%;
 }
 
 #password-label {
@@ -26,4 +33,26 @@ html, body {
 
 .margin-bottom {
     margin-bottom: 0.3em;
+}
+
+.float-right {
+    float: right;
+}
+
+@media screen and (max-width: 480px) {
+    .float-right {
+      float: none;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .float-right {
+      background-color: rgb(242, 255, 0);
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .owner-div {
+        float: left;
+    }
 }
