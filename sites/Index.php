@@ -13,12 +13,15 @@
 </head>
 
 <body>
-    <div>
+    <div class="content">
+        <?php include '..\\inc\\nav.php';?>
         <main>
-            <?php include '..\\inc\\nav.php';?>   
-        </main>
+            <?php
+            if (isset($content)) {
+                include $content;
+            }
+            ?>
     </div>
-
 </body>
 
 </html>
