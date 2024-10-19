@@ -15,7 +15,7 @@
 <body>
     <div>
         <main>
-            <?php include( '../inc/nav.php');?>   
+            <?php include '..\\inc\\nav.php';?>   
         </main>
     </div>
 
