@@ -1,5 +1,5 @@
 <div class="bg-light d-flex justify-content-center">
-    <form method="post">
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <div class="form-group col-auto">
                 <label for="anrede">Anrede:</label>
                 <select name="anrede" id="anrede" class="form-control">
