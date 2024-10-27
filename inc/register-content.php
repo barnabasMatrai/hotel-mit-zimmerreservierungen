@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $passwordSame = test_password($passwort, $passwortWiederholen);
 }
 ?>
-<div class="bg-light d-flex justify-content-center">
+<div class="d-flex justify-content-center">
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <div class="form-group col-auto">
                 <label for="anrede">Anrede:</label>

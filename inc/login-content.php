@@ -1,5 +1,5 @@
 <div class="bg-light d-flex justify-content-center">
-    <form method="post">
+    <form method="post" action="../sites/index.php">
         <div class="form-group col-auto">
             <label for="username">Username:</label>
             <input name="username" id="username" class="form-control" required>

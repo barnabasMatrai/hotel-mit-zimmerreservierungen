@@ -1,3 +1,12 @@
+<?php
+$welcomeText = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $welcomeText = "Hallo " . htmlspecialchars($_POST["username"]);
+    
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -16,11 +25,14 @@
     <div class="content">
         <?php include '..\\inc\\nav.php';?>
         <main>
-            <?php
-            if (isset($content)) {
-                include $content;
-            }
-            ?>
+            <div class="bg-light">
+                <span><?php echo $welcomeText;?></span>
+                <?php
+                if (isset($content)) {
+                    include $content;
+                }
+                ?>
+            </div>
     </div>
 </body>
 
