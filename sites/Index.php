@@ -3,7 +3,6 @@ $welcomeText = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $welcomeText = "Hallo " . htmlspecialchars($_POST["username"]);
-    
 }
 ?>
 
