@@ -1,42 +1,36 @@
 <?php
-function test_input($data) {
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
-function test_not_empty($name, $data) {
-    return empty($data) ? $name . ' kann nicht leer sein!' : $name . ' ist nicht leer';
+function test_capitalized($name, $data) {
+    return $data[0]=== strtolower($data[0]) ? $name . ' muss mit einem Grossbuchstaben beginnen!' : '';
 }
 
 function test_username($username, $takenUsernames) {
-    return in_array($username, $takenUsernames) ? 'Username ist schon vergeben!' : 'Username ist noch nicht vergeben';
+    return in_array($username, $takenUsernames) ? 'Username ist schon vergeben!' : '';
 }
 
 function test_password($passwort, $passwortWiederholung) {
-    return $passwort === $passwortWiederholung ? 'Das Passwort ist okay' : 'Das Passwort stimmt nicht überein!';
+    return $passwort !== $passwortWiederholung ? 'Das Passwort stimmt nicht überein!' : '';
+}
+
+function check_and_echo_error($data) {
+    if ($data !== '')
+    {
+        echo '<div class="alert alert-danger mt-2"><p class="mb-0">' . $data . '</p></div>';
+    }
 }
 
 $takenUsernames = array("Rita12", "Esther56", "user1");
 
-$anredeCorrect = $vornameCorrect = $nachnameCorrect = $emailCorrect = $usernameCorrect = $passwortCorrect
-= $passwortWiederholenCorrect = $passwordSame = $usernameTaken = '';
+$vornameCorrect = $nachnameCorrect = $passwordSame = $usernameTaken = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $anrede = test_input($_POST["anrede"]);
     $vorname = test_input($_POST["vorname"]);
     $nachname = test_input($_POST["nachname"]);
-    $email = test_input($_POST["email"]);
     $username = test_input($_POST["username"]);
     $passwort = test_input($_POST["passwort"]);
     $passwortWiederholen = test_input($_POST["passwortWiederholen"]);
 
-    $anredeCorrect = test_not_empty('Anrede', $anrede);
-    $vornameCorrect = test_not_empty('Vorname', $vorname);
-    $nachnameCorrect = test_not_empty('Nachname', $nachname);
-    $emailCorrect = test_not_empty('Email', $email);
-    $usernameCorrect = test_not_empty('Username', $username);
-    $passwortCorrect = test_not_empty('Passwort', $passwort);
-    $passwortWiederholenCorrect = test_not_empty('Passwort wiederholen', $passwortWiederholen);
+    $vornameCorrect = test_capitalized('Vorname', $vorname);
+    $nachnameCorrect = test_capitalized('Nachname', $nachname);
 
     $usernameTaken = test_username($username, $takenUsernames);
     $passwordSame = test_password($passwort, $passwortWiederholen);
@@ -51,38 +45,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value="frau">Frau</option>
                     <option value="divers">Divers</option>
                 </select>
-                <span><?php echo $anredeCorrect;?></span>
             </div>
             <div class="form-group col-auto">
                 <label for="vorname">Vorname:</label>
                 <input name="vorname" id="vorname" class="form-control" required>
-                <span><?php echo $vornameCorrect;?></span>
+                <?php check_and_echo_error($vornameCorrect);?>
             </div>
             <div class="form-group col-auto">
                 <label for="nachname">Nachname:</label>
                 <input name="nachname" id="nachname" class="form-control" required>
-                <span><?php echo $nachnameCorrect;?></span>
+                <?php check_and_echo_error($nachnameCorrect);?>
             </div>
             <div class="form-group col-auto">
                 <label for="email">Email-Adresse:</label>
                 <input name="email" type="email" id="email" class="form-control" required>
-                <span><?php echo $emailCorrect;?></span>
             </div>
             <div class="form-group col-auto">
                 <label for="username">Username:</label>
                 <input name="username" id="username" class="form-control" required>
-                <span><?php echo $usernameCorrect;?></span>
-                <span><?php echo $usernameTaken;?></span>
+                <?php check_and_echo_error($usernameTaken);?>
             </div>
             <div class="form-group col-auto">
                 <label for="passwort">Passwort:</label>
                 <input name="passwort" type="password" id="passwort" class="form-control" required>
-                <span><?php echo $passwortCorrect;?></span>
             </div>
             <div class="form-group col-auto">
                 <label for="passwortWiederholen">Passwort wiederholen:</label>
                 <input name="passwortWiederholen" type="password" id="passwortWiederholen" class="form-control" required>
-                <span><?php echo $passwordSame;?></span>
+                <?php check_and_echo_error($passwordSame);?>
+            </div>
+            <div>
+                <input type="hidden" name="form-type" value="register">
             </div>
         <button type="submit" class="btn btn-primary">Registrieren</button>
     </form>
