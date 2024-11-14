@@ -1,4 +1,4 @@
-<div class="bg-light d-flex justify-content-center">
+<div class="d-flex justify-content-center">
     <form method="post" action="../sites/index.php">
         <div class="form-group col-auto">
             <label for="username">Username:</label>
