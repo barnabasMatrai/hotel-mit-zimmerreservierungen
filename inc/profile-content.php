@@ -1,34 +1,16 @@
 <?php
-function test_capitalized($name, $data) {
-    return $data[0]=== strtolower($data[0]) ? $name . ' muss mit einem Grossbuchstaben beginnen!' : '';
+
+$username = "";
+if (session_status() === PHP_SESSION_ACTIVE) {
+    if (isset($_SESSION["username"])) {
+        $username = $_SESSION["username"];
+    }
+    
 }
 
-function test_username($username, $takenUsernames) {
-    return in_array($username, $takenUsernames) ? 'Username ist schon vergeben!' : '';
-}
-
-function test_password($passwort, $passwortWiederholung) {
-    return $passwort !== $passwortWiederholung ? 'Das Passwort stimmt nicht überein!' : '';
-}
-
-$takenUsernames = array("Rita12", "Esther56", "user1");
-
-$vornameCorrect = $nachnameCorrect = $passwordSame = $usernameTaken = '';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $vorname = test_input($_POST["vorname"]);
-    $nachname = test_input($_POST["nachname"]);
-    $username = test_input($_POST["username"]);
-    $passwort = test_input($_POST["passwort"]);
-    $passwortWiederholen = test_input($_POST["passwortWiederholen"]);
-
-    $vornameCorrect = test_capitalized('Vorname', $vorname);
-    $nachnameCorrect = test_capitalized('Nachname', $nachname);
-
-    $usernameTaken = test_username($username, $takenUsernames);
-    $passwordSame = test_password($passwort, $passwortWiederholen);
-}
+$passwort = isset($_SESSION["passwort"]);
 ?>
+
 <div class="d-flex justify-content-center">
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <div class="form-group col-auto">
@@ -55,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group col-auto">
                 <label for="username">Username:</label>
-                <input name="username" id="username" class="form-control" required>
+                <?php echo '<input name="username" id="username" class="form-control" value="' . $username . '" required>';?>
                 <?php check_and_echo_error($usernameTaken);?>
             </div>
             <div class="form-group col-auto">

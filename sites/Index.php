@@ -1,4 +1,11 @@
 <?php
+function check_and_echo_error($data) {
+    if ($data !== '')
+    {
+        echo '<div class="alert alert-danger mt-2"><p class="mb-0">' . $data . '</p></div>';
+    }
+}
+
 function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
