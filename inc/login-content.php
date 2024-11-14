@@ -8,6 +8,9 @@
             <label for="passwort" id="password-label">Passwort:</label>
             <input name="passwort" type="password" id="passwort" class="form-control" required>
         </div>
+        <div>
+            <input type="hidden" name="form-type" value="login">
+        </div>
         <button type="submit" class="btn btn-primary">Login</button>
     </form>
 </div>

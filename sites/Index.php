@@ -1,8 +1,28 @@
 <?php
+function test_input($data) {
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
 $welcomeText = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $welcomeText = "Hallo " . htmlspecialchars($_POST["username"]);
+if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST["form-type"]) || $_POST["form-type"] === "login")) {
+    $passwordsByUsernames = array(
+        "Rita12" => "r!ta",
+        "Esther56" => "ichbinesther",
+        "user1" => "user123"
+    );
+
+    $givenUsername = test_input($_POST["username"]);
+    $givenPassword = test_input($_POST["passwort"]);
+
+    foreach ($passwordsByUsernames as $username => $password)
+    {
+        if ($givenUsername === $username && $givenPassword === $password)
+        {
+            $welcomeText = "Hallo " . htmlspecialchars($_POST["username"]);
+        }
+    }
 }
 ?>
 
@@ -25,7 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php include '..\\inc\\nav.php';?>
         <main>
             <div class="bg-light">
-                <span><?php echo $welcomeText;?></span>
+                <?php
+                    if ($welcomeText !== '')
+                    {
+                        echo '<div class="alert alert-success"><p class="mb-0">' . $welcomeText . '</p></div>';
+                    }
+                ?>
                 <?php
                 if (isset($content)) {
                     include $content;
