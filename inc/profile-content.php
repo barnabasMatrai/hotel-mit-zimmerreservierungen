@@ -1,6 +1,7 @@
 <?php
-
+$vornameCorrect = $nachnameCorrect = $passwordSame = $usernameTaken = '';
 $username = "";
+echo session_status();
 if (session_status() === PHP_SESSION_ACTIVE) {
     if (isset($_SESSION["username"])) {
         $username = $_SESSION["username"];
