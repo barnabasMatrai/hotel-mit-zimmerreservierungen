@@ -7,47 +7,47 @@ function test_username($username, $takenUsernames) {
     return in_array($username, $takenUsernames) ? 'Username ist schon vergeben!' : '';
 }
 
-function test_password($passwort, $passwortWiederholung) {
-    return $passwort !== $passwortWiederholung ? 'Das Passwort stimmt nicht überein!' : '';
+function test_password($password, $repeatPassword) {
+    return $password !== $repeatPassword ? 'Das Passwort stimmt nicht überein!' : '';
 }
 
 $takenUsernames = array("Rita12", "Esther56", "user1");
 
-$vornameCorrect = $nachnameCorrect = $passwordSame = $usernameTaken = '';
+$firstnameCorrect = $lastnameCorrect = $passwordSame = $usernameTaken = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $vorname = test_input($_POST["vorname"]);
-    $nachname = test_input($_POST["nachname"]);
+    $firstname = test_input($_POST["firstname"]);
+    $lastname = test_input($_POST["lastname"]);
     $username = test_input($_POST["username"]);
-    $passwort = test_input($_POST["passwort"]);
-    $passwortWiederholen = test_input($_POST["passwortWiederholen"]);
+    $password = test_input($_POST["password"]);
+    $repeatPassword = test_input($_POST["repeatPassword"]);
 
-    $vornameCorrect = test_capitalized('Vorname', $vorname);
-    $nachnameCorrect = test_capitalized('Nachname', $nachname);
+    $firstnameCorrect = test_capitalized('Vorname', $firstname);
+    $lastnameCorrect = test_capitalized('Nachname', $lastname);
 
     $usernameTaken = test_username($username, $takenUsernames);
-    $passwordSame = test_password($passwort, $passwortWiederholen);
+    $passwordSame = test_password($password, $repeatPassword);
 }
 ?>
 <div class="d-flex justify-content-center">
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <div class="form-group col-auto">
-                <label for="anrede">Anrede:</label>
-                <select name="anrede" id="anrede" class="form-control">
-                    <option value="herr">Herr</option>
-                    <option value="frau">Frau</option>
-                    <option value="divers">Divers</option>
+                <label for="title">Anrede:</label>
+                <select name="title" id="title" class="form-control">
+                    <option value="sir">Herr</option>
+                    <option value="madam">Frau</option>
+                    <option value="diverse">Divers</option>
                 </select>
             </div>
             <div class="form-group col-auto">
-                <label for="vorname">Vorname:</label>
-                <input name="vorname" id="vorname" class="form-control" required>
-                <?php check_and_echo_error($vornameCorrect);?>
+                <label for="firstname">Vorname:</label>
+                <input name="firstname" id="firstname" class="form-control" required>
+                <?php check_and_echo_error($firstnameCorrect);?>
             </div>
             <div class="form-group col-auto">
-                <label for="nachname">Nachname:</label>
-                <input name="nachname" id="nachname" class="form-control" required>
-                <?php check_and_echo_error($nachnameCorrect);?>
+                <label for="lastname">Nachname:</label>
+                <input name="lastname" id="lastname" class="form-control" required>
+                <?php check_and_echo_error($lastnameCorrect);?>
             </div>
             <div class="form-group col-auto">
                 <label for="email">Email-Adresse:</label>
@@ -59,12 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php check_and_echo_error($usernameTaken);?>
             </div>
             <div class="form-group col-auto">
-                <label for="passwort">Passwort:</label>
-                <input name="passwort" type="password" id="passwort" class="form-control" required>
+                <label for="password">Passwort:</label>
+                <input name="password" type="password" id="password" class="form-control" required>
             </div>
             <div class="form-group col-auto">
-                <label for="passwortWiederholen">Passwort wiederholen:</label>
-                <input name="passwortWiederholen" type="password" id="passwortWiederholen" class="form-control" required>
+                <label for="repeatPassword">Passwort wiederholen:</label>
+                <input name="repeatPassword" type="password" id="repeatPassword" class="form-control" required>
                 <?php check_and_echo_error($passwordSame);?>
             </div>
             <div>

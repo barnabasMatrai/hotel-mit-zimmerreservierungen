@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && (!isset($_POST["form-type"]) || $_PO
     );
 
     $givenUsername = test_input($_POST["username"]);
-    $givenPassword = test_input($_POST["passwort"]);
+    $givenPassword = test_input($_POST["password"]);
 
     foreach ($passwordsByUsernames as $username => $password)
     {
