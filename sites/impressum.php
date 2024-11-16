@@ -1,6 +1,6 @@
 
 <?php
-$content = '../inc/impressum-content.php';
+$content = '../inc/site-contents/impressum-content.php';
 
-include 'index.php';
+include '../inc/site-base.php';
 ?>    

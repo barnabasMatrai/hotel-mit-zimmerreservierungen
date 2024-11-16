@@ -1,5 +1,5 @@
 <?php
-$content = '../inc/login-content.php';
+$content = '../inc/site-contents/login-logout-content.php';
 
-include 'index.php';
+include '../inc/site-base.php';
 ?>

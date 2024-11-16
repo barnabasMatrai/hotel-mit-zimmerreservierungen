@@ -1,15 +1,4 @@
 <?php
-function test_capitalized($name, $data) {
-    return $data[0]=== strtolower($data[0]) ? $name . ' muss mit einem Grossbuchstaben beginnen!' : '';
-}
-
-function test_username($username, $takenUsernames) {
-    return in_array($username, $takenUsernames) ? 'Username ist schon vergeben!' : '';
-}
-
-function test_password($password, $repeatPassword) {
-    return $password !== $repeatPassword ? 'Das Passwort stimmt nicht überein!' : '';
-}
 
 $takenUsernames = array("Rita12", "Esther56", "user1");
 
@@ -26,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lastnameCorrect = test_capitalized('Nachname', $lastname);
 
     $usernameTaken = test_username($username, $takenUsernames);
-    $passwordSame = test_password($password, $repeatPassword);
+    $passwordSame = is_password_same($password, $repeatPassword) ? '' : 'Das Passwort stimmt nicht überein!';
 }
 ?>
 <div class="d-flex justify-content-center">
@@ -66,9 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="repeatPassword">Passwort wiederholen:</label>
                 <input name="repeatPassword" type="password" id="repeatPassword" class="form-control" required>
                 <?php check_and_echo_error($passwordSame);?>
-            </div>
-            <div>
-                <input type="hidden" name="form-type" value="register">
             </div>
         <button type="submit" class="btn btn-primary">Registrieren</button>
     </form>
