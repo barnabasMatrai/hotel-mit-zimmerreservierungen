@@ -10,11 +10,13 @@
         <li>
             <div>
                 <?php
-                echo '<p>Anreise: ' . $_SESSION['arrival'] . '</p>
-                <p>Abreise: ' . $_SESSION['departure'] . '</p>
-                <p>' . ($_SESSION['breakfast'] ? 'Mit Frühstück' : 'Ohne Frühstück') . '</p>
-                <p>' . ($_SESSION['parking'] ? 'Mit Parkplatz' : 'Ohne Parkplatz') . '</p>
-                <p>' . ($_SESSION['cat'] ? 'Katze' : 'Keine Katze') . '</p>'
+                if (isset($_SESSION['arrival'])) {
+                    echo '<p>Anreise: ' . $_SESSION['arrival'] . '</p>
+                    <p>Abreise: ' . $_SESSION['departure'] . '</p>
+                    <p>' . ($_SESSION['breakfast'] ? 'Mit Frühstück' : 'Ohne Frühstück') . '</p>
+                    <p>' . ($_SESSION['parking'] ? 'Mit Parkplatz' : 'Ohne Parkplatz') . '</p>
+                    <p>' . ($_SESSION['cat'] ? 'Katze' : 'Keine Katze') . '</p>';
+                }
                 ?>
             </div>
         </li>
