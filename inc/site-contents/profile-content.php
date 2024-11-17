@@ -1,22 +1,50 @@
 <?php
 
-$firstnameCorrect = $lastnameCorrect = $passwordSame = $usernameTaken = '';
-$title = $firstname = $lastname = $email = $password = '';
+$allFieldsFilledCorrect = $firstnameCorrect = $lastnameCorrect = $passwordSame = $usernameTaken = '';
+$title = $_SESSION['title'];
+$firstname = $_SESSION['firstname'];
+$lastname = $_SESSION['lastname'];
+$email = $_SESSION['email'];
+$password = $_SESSION['password'];
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (isset($_GET["logout"])) {
+        session_unset();
+        session_destroy();
+        header("Location: ../sites/index.php");
+        exit("redirect to index");
+    }
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
-    $_SESSION["title"] = isset($_POST['title']) ? $_POST['title'] : $_SESSION['title'];
-    $_SESSION["firstname"] = isset($_POST['firstname']) ? $_POST['firstname'] : $_SESSION['firstname'];
-    $_SESSION["lastname"] = isset($_POST['lastname']) ? $_POST['lastname'] : $_SESSION['lastname'];
-    $_SESSION["email"] = isset($_POST['email']) ? $_POST['email'] : $_SESSION['email'];
-}
+    if (isset($_POST['title']) and
+        isset($_POST['firstname']) and
+        isset($_POST['lastname']) and
+        isset($_POST['email'])) {
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
 
-if (isset($_SESSION["username"]))
-{
-    $title = $_SESSION["title"];
-    $firstname = $_SESSION["firstname"];
-    $lastname = $_SESSION["lastname"];
-    $email = $_SESSION["email"];
+        if (empty($firstname) or
+            empty($lastname) or
+            empty($title) or
+            empty($email)) {
+            $allFieldsFilledCorrect = 'Alle Felder müssen ausgefüllt sein!';
+        }
+
+        $isFirstnameCorrect = test_capitalized($firstname);
+        $isLastnameCorrect = test_capitalized($lastname);
+
+        $firstnameCorrect = $isFirstnameCorrect ? '' : 'Vorname muss mit einem Grossbuchstaben beginnen!';
+        $lastnameCorrect = $isLastnameCorrect ? '' : 'Nachname muss mit einem Grossbuchstaben beginnen!';
+    
+        if ($isFirstnameCorrect && $isLastnameCorrect) {
+            $_SESSION["title"] = $_POST['title'];
+            $_SESSION["firstname"] = $_POST['firstname'];
+            $_SESSION["lastname"] = $_POST['lastname'];
+            $_SESSION["email"] = $_POST['email'];
+        }
+    }
 }
 ?>
 
@@ -45,17 +73,20 @@ if (isset($_SESSION["username"]))
         <div class="form-group col-auto">
             <label for="firstname">Vorname:</label>
             <?php echo create_input_tag("text", "firstname", $firstname);?>
-            <php? check_and_echo_error($firstnameCorrect)?>
+            <?php check_and_echo_error($firstnameCorrect)?>
         </div>
         <div class="form-group col-auto">
             <label for="lastname">Nachname:</label>
             <?php echo create_input_tag("text", "lastname", $lastname);?>
-            <php? check_and_echo_error($lastnameCorrect)?>
+            <?php check_and_echo_error($lastnameCorrect)?>
         </div>
         <div class="form-group col-auto">
             <label for="email">Email-Adresse:</label>
             <?php echo create_input_tag("email", "email", $email);?>
         </div>
-        <button type="submit" class="btn btn-primary">Speichern</button>
+        <div class="form-group col-auto">
+            <?php check_and_echo_error($allFieldsFilledCorrect)?>
+            <button type="submit" class="btn btn-primary">Speichern</button>
+        </div>
     </form>
 </div>

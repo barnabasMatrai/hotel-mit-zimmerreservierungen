@@ -18,7 +18,10 @@
                 <a class="nav-link" href="register.php">Register</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="room-reservation.php">Room reservation</a>
+                <a class="nav-link" href="room-reservation.php">Reserve a room</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="room-reservations.php">Room reservations</a>
             </li>
         </ul>
     </div>
