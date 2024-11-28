@@ -23,6 +23,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="room-reservations.php">Room reservations</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="article.php">Article</a>
+            </li>
         </ul>
     </div>
 </nav>
