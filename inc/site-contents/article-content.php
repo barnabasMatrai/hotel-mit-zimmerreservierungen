@@ -1,27 +1,42 @@
 <?php
-$uploadFile = null;
+$fileUploaded = false;
 $uploadDir = "../resources/news/";
 
+$fileCorrect = $commentCorrect = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // echo "received POST: ".json_encode($_POST)."<br>";
-    // echo "received FILES: ".json_encode($_FILES)."<br>";
-    $valid = true; //maybe some checks like filesize, suffix, content-type, ... 
-    $extensions=array("png","gif","jpeg");
-    $valid = matchesAny(pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION), $extensions);
-    if($valid) {
-        createAndSaveResizedImage($_FILES["file"]["tmp_name"], $uploadDir);
-        
-        $comment = $_POST["comment"];
-        $path_parts = pathinfo($uploadDir . $_FILES['file']['name']);
-        $filename = $path_parts['filename'];
-        $newFile = fopen($uploadDir . $filename . ".txt","w");
-        fwrite($newFile, $comment);
+    $extensions = array("png","gif","jpeg");
+    $extension = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
+    $isImage = matchesAny($extension, $extensions);
+
+    $isValid = true;
+    if (empty($_FILES["file"]["name"])) {
+        $isValid = false;
+        $fileCorrect = "Ein Bild muss hochgeladet werden!";
+    } else if (!$isImage) {
+        $isValid = false;
+        $fileCorrect = "Das hochgeladete File ist kein Bild!";
     }
-    $isfilevalid = true;
-    if(!$valid)  {
-        $isfilevalid = false    
+
+    $comment = $_POST["comment"];
+    if (empty($comment)) {
+        $isValid = false;
+        $commentCorrect = "Das Kommentar darf nicht leer sein!";
     }
     
+    if ($isValid) {
+        createAndSaveResizedImage($_FILES["file"]["tmp_name"], $uploadDir);
+        createAndSaveComment($comment, $uploadDir);
+        $fileUploaded = true;
+    }
+    
+}
+
+function createAndSaveComment($comment, $uploadDir) {
+    $path_parts = pathinfo($uploadDir . $_FILES['file']['name']);
+    $filename = $path_parts['filename'];
+    $newFile = fopen($uploadDir . $filename . ".txt","w");
+    fwrite($newFile, $comment);
 }
 
 function matchesAny($filename, $allowedSuffixes){
@@ -35,42 +50,43 @@ function matchesAny($filename, $allowedSuffixes){
 
 function createAndSaveResizedImage($uploadFile, $uploadDir) {
     $uploadFile = $uploadDir . $_FILES['file']['name'];
-    // File and new size
-    $percent = 0.3;
 
-    // Get new sizes
+    // $percent = 0.3;
+
     list($width, $height) = getimagesize($_FILES['file']['tmp_name']); 
-    $newwidth = $width;
-    $newheight = $height;
-    if ($width > 900) {
-        $newwidth *= $percent;
-        $newheight *= $percent;
-    }
+    $newwidth = 720;
+    $newheight = 480;
+    // if ($width > 900) {
+    //     $newwidth *= $percent;
+    //     $newheight *= $percent;
+    // }
 
-    // Load
     $thumb = imagecreatetruecolor($newwidth, $newheight);
 
-    // see https://stackoverflow.com/a/32666832/9219743
     $source = imagecreatefromstring(file_get_contents($_FILES['file']['tmp_name']));
 
-    // Resize
     imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
-    // Output
-    //header('Content-Type: image/jpeg');
     imagejpeg($thumb, $uploadFile);
 }
 ?>
 
-<h1>Form with multipart enctype</h1>
-<form enctype="multipart/form-data" method="post">
-    <input type="file" name="file">
-    <label for="comment"></label>
-    <textarea id="comment" name="comment" rows="3" cols="50"></textarea>
-    <input type="submit" value="Hochladen">
-</form>
-
-<?php if ($uploadFile): ?>
-    <p>This image was uploaded:</p>
-<?php endif; ?>
-
+<div class="d-flex justify-content-center">
+    <form enctype="multipart/form-data" method="post">
+        <div class="form-group col-auto">
+            <input type="file" name="file">
+            <?php check_and_echo_error($fileCorrect);?>
+        </div>
+        <div class="form-group col-auto">
+            <label for="comment"></label>
+            <textarea id="comment" name="comment" rows="3" cols="50"></textarea>
+            <?php check_and_echo_error($commentCorrect);?>
+        </div>
+        <div class="form-group col-auto">
+            <input type="submit" value="Hochladen">
+        </div>
+        <?php if ($fileUploaded): ?>
+            <div class="alert alert-success"><p class="mb-0">The image was uploaded!</p></div>
+        <?php endif; ?>
+    </form>
+</div>
