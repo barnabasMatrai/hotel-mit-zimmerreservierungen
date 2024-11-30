@@ -48,13 +48,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 }
 ?>
 
-<form class="float-right m-2" method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<form class="float-end m-2" method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <div>
         <input type="hidden" name="logout" value="true">
     </div>
     <button type="submit" class="btn btn-primary">Logout</button>
 </form>
-<form class="float-right m-2" method="get" action="change-password.php">
+<form class="float-end m-2" method="get" action="change-password.php">
     <div>
         <input type="hidden" name="changepassword" value="true">
     </div>
