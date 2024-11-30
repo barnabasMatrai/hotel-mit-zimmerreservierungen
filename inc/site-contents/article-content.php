@@ -17,6 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $newFile = fopen($uploadDir . $filename . ".txt","w");
         fwrite($newFile, $comment);
     }
+    $isfilevalid = true;
+    if(!$valid)  {
+        $isfilevalid = false    
+    }
+    
 }
 
 function matchesAny($filename, $allowedSuffixes){
