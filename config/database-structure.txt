@@ -1,0 +1,22 @@
+User:
+id int primary key auto_increment
+title varchar(6) not null
+firstname varchar(30) not null
+lastname varchar(30) not null
+email varchar(100) not null
+username varchar(30) not null
+password varchar(30) not null
+isAdmin boolean not null
+
+Reservation:
+id int primary key auto_increment
+userId int foreign key
+arrival date not null
+departure date not null
+breakfast bool not null
+parking bool not null
+cat bool not null
+
+//article:
+//comment varchar(500) not null
+//image

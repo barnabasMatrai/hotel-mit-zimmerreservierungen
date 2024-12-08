@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-include '..\inc\functions.php';
+include 'functions.php';
+include 'util.php';
 ?>
 
 <!DOCTYPE html>

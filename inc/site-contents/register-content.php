@@ -5,25 +5,36 @@ $takenUsernames = array("Rita12", "Esther56", "user1");
 $allFieldsFilledCorrect = $firstnameCorrect = $lastnameCorrect = $passwordSame = $usernameTaken = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title = $_POST["title"];
     $firstname = $_POST["firstname"];
     $lastname = $_POST["lastname"];
+    $email = $_POST["email"];
     $username = $_POST["username"];
     $password = $_POST["password"];
     $repeatPassword = $_POST["repeatPassword"];
+    
+        $firstnameCorrect = test_capitalized($firstname)  ? '' : 'Vorname muss mit einem Grossbuchstaben beginnen!';
+        $lastnameCorrect = test_capitalized($lastname)  ? '' : 'Nachname muss mit einem Grossbuchstaben beginnen!';
+    
+        $usernameTaken = test_username($username, $takenUsernames) ? 'Username ist schon vergeben!' : '';
+        $passwordSame = is_password_same($password, $repeatPassword) ? '' : 'Das Passwort stimmt nicht überein!';
 
+        $fieldsCorrect = !$firstnameCorrect && !$lastnameCorrect && !$usernameTaken && !$passwordSame;
     if (empty($firstname) or
         empty($lastname) or
         empty($username) or
         empty($password) or
         empty($repeatPassword)) {
             $allFieldsFilledCorrect = 'Alle Felder müssen ausgefüllt sein!';
+    } else if ($fieldsCorrect) {
+        $db = getDb();
+        $userExists = userExists($db, $username);
+
+        if (!$userExists) {
+            insertUser($db, $title, $firstname, $lastname, $email, $username, $password);
+        }
     }
 
-    $firstnameCorrect = test_capitalized($firstname)  ? '' : 'Vorname muss mit einem Grossbuchstaben beginnen!';
-    $lastnameCorrect = test_capitalized($lastname)  ? '' : 'Nachname muss mit einem Grossbuchstaben beginnen!';
-
-    $usernameTaken = test_username($username, $takenUsernames) ? 'Username ist schon vergeben!' : '';
-    $passwordSame = is_password_same($password, $repeatPassword) ? '' : 'Das Passwort stimmt nicht überein!';
 }
 ?>
 <div class="d-flex justify-content-center">
@@ -31,9 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="form-group col-auto">
             <label for="title">Anrede:</label>
             <select name="title" id="title" class="form-control">
-                <option value="sir">Herr</option>
-                <option value="madam">Frau</option>
-                <option value="diverse">Divers</option>
+                <option value="Herr">Herr</option>
+                <option value="Frau">Frau</option>
+                <option value="Divers">Divers</option>
             </select>
         </div>
         <div class="form-group col-auto">

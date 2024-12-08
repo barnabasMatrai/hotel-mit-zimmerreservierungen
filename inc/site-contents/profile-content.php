@@ -65,9 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         <div class="form-group col-auto">
             <label for="title">Anrede:</label>
             <select name="title" id="title" class="form-control">
-                <option value="herr" <?php select_title("herr") ?>>Herr</option>
-                <option value="frau" <?php select_title("frau") ?>>Frau</option>
-                <option value="divers" <?php select_title("divers") ?>>Divers</option>
+                <option value="Herr" <?php select_title("herr") ?>>Herr</option>
+                <option value="Frau" <?php select_title("frau") ?>>Frau</option>
+                <option value="Divers" <?php select_title("divers") ?>>Divers</option>
             </select>
         </div>
         <div class="form-group col-auto">
