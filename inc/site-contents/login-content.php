@@ -16,24 +16,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             empty($password)) {
             $allFieldsFilledCorrect = 'Alle Felder müssen ausgefüllt sein!';
         } else {
-            if (!isset($db)) {
-                $db = getDb();
-            }
+            $db = getDb();
             $user = getUserSecure($db, $username, $password);
 
             if ($user != null) {
+                $_SESSION["userid"] = $user["Id"];
                 $_SESSION["title"] = $user["Title"];
                 $_SESSION["firstname"] = $user["FirstName"];
                 $_SESSION["lastname"] = $user["LastName"];
                 $_SESSION["email"] = $user["Email"];
                 $_SESSION["username"] = $user["UserName"];
                 $_SESSION["isAdmin"] = $user["IsAdmin"];
-
-                if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]) {
-                    changeDbUserToAdmin($db);
-                } else {
-                    changeDbUserToRegular($db);
-                }
         
                 header("Location: ../sites/login.php");
                 exit("redirect to index");

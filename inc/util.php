@@ -1,24 +1,19 @@
 <?php
+$db = NULL;
 
 function getDb() {
     $config = require('..\config\dbaccess.php');
-    $db = new mysqli($config["host"], $config["user"], $config["password"], $config["database"]);
+    global $db;
 
-    if ($db->connect_error) {
-        echo "Connection Error: " . $db->connect_error;
-        exit();
+    if (!isset($db)) {
+        $db = new mysqli($config["host"], $config["user"], $config["password"], $config["database"]);
+    
+        if ($db->connect_error) {
+            echo "Connection Error: " . $db->connect_error;
+            exit();
+        }
     }
     return $db;
-}
-
-function changeDbUserToAdmin($db) {
-    $config = require('..\config\dbaccess.php');
-    $db -> change_user($config["adminUser"], $config["adminPassword"], $config["database"]);
-}
-
-function changeDbUserToRegular($db) {
-    $config = require('..\config\dbaccess.php');
-    $db -> change_user($config["user"], $config["password"], $config["database"]);
 }
 
 function userExists($db, $username) {
@@ -54,6 +49,46 @@ function insertUser($db, $title, $firstname, $lastname, $email, $username, $pass
         } else {
             echo "Error: " . $stmt->error;
         }
+
+        $stmt->close();
+    } else {
+        echo "Error preparing the statement: " . $db->error;
+    }
+}
+
+function insertReservation($db, $userid, $arrival, $departure, $breakfast, $parking, $cat) {
+    $stmt = $db->prepare("INSERT INTO reservation (UserId, Arrival, Departure, Breakfast, Parking, Cat) 
+                            VALUES (?, ?, ?, ?, ?, ?)");
+    if ($stmt) {
+        $stmt->bind_param("issiii", $userid, $arrival, $departure, $breakfast, $parking, $cat);
+
+        if ($stmt->execute()) {
+            echo "New record created successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
+    } else {
+        echo "Error preparing the statement: " . $db->error;
+    }
+}
+
+function getReservations($db, $userid) {
+    $stmt = $db->prepare("SELECT * FROM reservation WHERE UserId = ?");
+    if ($stmt) {
+        $stmt->bind_param("i", $userid);
+
+        if ($stmt->execute()) {
+            echo "Reservations found successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $result = $stmt->get_result();
+        // while ($obj = $result->fetch_object()) {
+        //     printf("%s (%s)\n", $obj->Name, $obj->CountryCode);
+        // }
 
         $stmt->close();
     } else {

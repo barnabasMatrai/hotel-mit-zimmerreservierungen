@@ -15,6 +15,7 @@
             $departure = $_POST['departure'];
             $breakfast = $_POST['breakfast'];
             $parking = $_POST['parking'];
+            $cat = isset($_POST['cat']) ? true : false;
 
             if (empty($arrival) or
                 empty($departure) or
@@ -28,11 +29,13 @@
             }
 
             if (empty($allFieldsFilledCorrect) and empty($datesCorrect)) {
+                $db = getDb();
+                insertReservation($db, $_SESSION['userid'], $arrival, $departure, $breakfast, $parking, $cat);
                 $_SESSION['arrival'] = $arrival;
                 $_SESSION['departure'] = $departure;
                 $_SESSION['breakfast'] = $breakfast;
                 $_SESSION['parking'] = $parking;
-                $_SESSION['cat'] = isset($_POST['cat']) ? true : false;
+                $_SESSION['cat'] = $cat;
             }
         }
     }
