@@ -3,22 +3,21 @@
         header("Location: ../sites/login.php");
         exit("redirect to index");
     }
+
+    $db = getDb();
+    $reservations = getReservations($db, $_SESSION["userid"]);
 ?>
 
 <div class="d-flex justify-content-center">
-    <?php
-    if (isset($_SESSION['arrival'])) {
-        echo '<ul>
-                  <li>
-                      <div>
-                            <p>Anreise: ' . $_SESSION['arrival'] . '</p>
-                            <p>Abreise: ' . $_SESSION['departure'] . '</p>
-                            <p>' . ($_SESSION['breakfast'] === "withbreakfast" ? 'Mit Frühstück' : 'Ohne Frühstück') . '</p>
-                            <p>' . ($_SESSION['parking'] === "withoutbreakfast" ? 'Mit Parkplatz' : 'Ohne Parkplatz') . '</p>
-                            <p>' . ($_SESSION['cat'] ? 'Katze' : 'Keine Katze') . '</p>
-                      </div>
-                  </li>
-              </ul>';
-    }
-    ?>
+    <ul>
+        <?php foreach($reservations as $reservation): ?>
+        <li>
+            <p><?= "Anreise: " . $reservation -> Arrival ;?></p>
+            <p><?= "Abreise: " . $reservation -> Departure ;?></p>
+            <p><?= $reservation -> Breakfast ? 'Mit Frühstück' : 'Ohne Frühstück' ;?></p>
+            <p><?= $reservation -> Parking ? 'Mit Parkplatz' : 'Ohne Parkplatz' ;?></p>
+            <p><?= $reservation -> Cat ? 'Katze' : 'Keine Katze' ;?></p>
+        </li>
+        <?php endforeach; ?>
+    </ul>    
 </div>

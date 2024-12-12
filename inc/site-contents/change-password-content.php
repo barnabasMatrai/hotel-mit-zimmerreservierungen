@@ -24,9 +24,12 @@ if (isset($_POST["oldpassword"]) and isset($_POST["newpassword"]) and isset($_PO
     
     if (is_password_same($oldPassword, $_SESSION["password"]) and
         is_password_same($newPassword, $repeatNewPassword)) {
+        $db = getDb();   
+        updatePassword($db, $newPassword, $_SESSION['userid']);
+        echo $_SESSION['userid'];
         $_SESSION["password"] = $newPassword;
-        header("Location: ../sites/login.php");
-        exit("redirect to login");
+        // header("Location: ../sites/login.php");
+        // exit("redirect to login");
     }
 }
 

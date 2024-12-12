@@ -18,9 +18,7 @@
             $cat = isset($_POST['cat']) ? true : false;
 
             if (empty($arrival) or
-                empty($departure) or
-                empty($breakfast) or
-                empty($parking)) {
+                empty($departure)) {
                 $allFieldsFilledCorrect = 'Alle Felder müssen ausgefüllt sein!';
             }
 
@@ -57,22 +55,22 @@
                 <p>Mit/Ohne Frühstück:</p>
                 <div class="float-left">
                     <label for="withbreakfast">mit</label>
-                    <input type="radio" name="breakfast" id="withbreakfast" value="withbreakfast" required>
+                    <input type="radio" name="breakfast" id="withbreakfast" value="1" required>
                 </div>
                 <div class="float-right">
                     <label for="withoutbreakfast">ohne</label>
-                    <input type="radio" name="breakfast" id="withoutbreakfast" value="withoutbreakfast">
+                    <input type="radio" name="breakfast" id="withoutbreakfast" value="0">
                 </div>
             </div>
             <div class="form-group col-auto flex-shrink-1">
                 <p>Mit/Ohne Parkplatz:</p>
                 <div class="float-left">
                     <label for="withparking">mit</label>
-                    <input type="radio" name="parking" id="withparking" value="withparking" required>
+                    <input type="radio" name="parking" id="withparking" value="1" required>
                 </div>
                 <div class="float-right">
                     <label for="withoutparking">ohne</label>
-                    <input type="radio" name="parking" id="withoutparking" value="withoutparking">
+                    <input type="radio" name="parking" id="withoutparking" value="0">
                 </div>
             </div>
         </div>

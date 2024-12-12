@@ -86,13 +86,34 @@ function getReservations($db, $userid) {
         }
 
         $result = $stmt->get_result();
-        // while ($obj = $result->fetch_object()) {
-        //     printf("%s (%s)\n", $obj->Name, $obj->CountryCode);
-        // }
+
+        $array = [];
+        while ($obj = $result->fetch_object()) {
+            $array[] = $obj;
+        }
 
         $stmt->close();
+
+        return $array;
     } else {
         echo "Error preparing the statement: " . $db->error;
     }
+
+    return null;
 }
+
+function updatePassword($db, $newPassword, $userId) {
+    $stmt = $db ->prepare("UPDATE user SET Password = ? WHERE Id = ?");
+    if ($stmt) {
+        $stmt->bind_param("si", $newPassword, $userid);
+
+        if ($stmt->execute()) {
+            echo "Password changed successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+    }
+}
+
 ?>
