@@ -105,7 +105,7 @@ function getReservations($db, $userid) {
 function updatePassword($db, $newPassword, $userId) {
     $stmt = $db ->prepare("UPDATE user SET Password = ? WHERE Id = ?");
     if ($stmt) {
-        $stmt->bind_param("si", $newPassword, $userid);
+        $stmt->bind_param("si", $newPassword, $userId);
 
         if ($stmt->execute()) {
             echo "Password changed successfully.";
