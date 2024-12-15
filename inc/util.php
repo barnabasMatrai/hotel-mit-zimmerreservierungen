@@ -137,18 +137,30 @@ function getPassword($db, $userId) {
     return null;
 }
 
-// function insertArticle($db, $comment, $filename, $userId) {
-//     $stmt = $db ->prepare("UPDATE user SET Password = ? WHERE Id = ?");
-//     if ($stmt) {
-//         $stmt->bind_param("si", $newPassword, $userId);
+function insertArticle($db, $comment, $filename, $uploadDate) {
+    $stmt = $db ->prepare("INSERT article (comment, filename, upload_date)
+                           VALUES (?, ?, ?)");
+    if ($stmt) {
+        $stmt->bind_param("sss", $comment, $filename, $uploadDate);
 
-//         if ($stmt->execute()) {
-//             echo "Password changed successfully.";
-//         } else {
-//             echo "Error: " . $stmt->error;
-//         }
-//         $stmt->close();
-//     }
-// }
+        if ($stmt->execute()) {
+            echo "New record created successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+    }
+}
+
+function getArticles($db) {
+    $result = $db->query("SELECT * FROM article
+                          ORDER BY upload_date DESC");
+    $array = [];
+    while ($obj = $result->fetch_object()) {
+        $array[] = $obj;
+    }
+
+    return $array;
+}
 
 ?>

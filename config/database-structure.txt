@@ -18,5 +18,7 @@ parking bool not null
 cat bool not null
 
 //article:
-//comment varchar(500) not null
-//image
+id int primary key auto_increment
+comment varchar(500) not null
+filename varchar(100) not null unique
+uploaddate datetime not null

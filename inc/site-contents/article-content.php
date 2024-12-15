@@ -27,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($isValid) {
         createAndSaveResizedImage($_FILES["file"]["tmp_name"], $uploadDir);
         createAndSaveComment($comment, $uploadDir);
+        $db = getDb();
+        insertArticle($db, $comment, $_FILES["file"]["name"], date("Y-m-d H:i:s"));
         $fileUploaded = true;
     }
     
@@ -51,15 +53,9 @@ function matchesAny($filename, $allowedSuffixes){
 function createAndSaveResizedImage($uploadFile, $uploadDir) {
     $uploadFile = $uploadDir . $_FILES['file']['name'];
 
-    // $percent = 0.3;
-
     list($width, $height) = getimagesize($_FILES['file']['tmp_name']); 
     $newwidth = 720;
     $newheight = 480;
-    // if ($width > 900) {
-    //     $newwidth *= $percent;
-    //     $newheight *= $percent;
-    // }
 
     $thumb = imagecreatetruecolor($newwidth, $newheight);
 
