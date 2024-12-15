@@ -17,21 +17,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $allFieldsFilledCorrect = 'Alle Felder müssen ausgefüllt sein!';
         } else {
             $db = getDb();
-            $user = getUserSecure($db, $username, $password);
+            $user = getUserSecure($db, $username);
 
-            if ($user != null) {
-                $_SESSION["userid"] = $user["Id"];
-                $_SESSION["title"] = $user["Title"];
-                $_SESSION["firstname"] = $user["FirstName"];
-                $_SESSION["lastname"] = $user["LastName"];
-                $_SESSION["email"] = $user["Email"];
-                $_SESSION["username"] = $user["UserName"];
-                $_SESSION["isAdmin"] = $user["IsAdmin"];
-        
-                header("Location: ../sites/login.php");
-                exit("redirect to index");
-            } else {
-                echo "User not found.";
+            if ($user) {
+                $hashedPassword = getPassword($db, $user["Id"]);
+                $isPasswordCorrect = password_verify($password, $hashedPassword);
+                
+                if ($isPasswordCorrect) {
+                    $_SESSION["userid"] = $user["Id"];
+                    $_SESSION["title"] = $user["Title"];
+                    $_SESSION["firstname"] = $user["FirstName"];
+                    $_SESSION["lastname"] = $user["LastName"];
+                    $_SESSION["email"] = $user["Email"];
+                    $_SESSION["username"] = $user["UserName"];
+                    $_SESSION["isAdmin"] = $user["IsAdmin"];
+            
+                    header("Location: ../sites/login.php");
+                    exit("redirect to index");
+                } else {
+                    echo "User not found.";
+                }
             }
         }
 

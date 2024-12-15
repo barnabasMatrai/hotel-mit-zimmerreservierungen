@@ -24,10 +24,10 @@ function userExists($db, $username) {
     return (bool) $statement->fetch();
 }
 
-function getUserSecure($db, $username, $password) {
-    $sql = "SELECT * FROM user WHERE username=? AND password=?";
+function getUserSecure($db, $username) {
+    $sql = "SELECT * FROM user WHERE UserName=?";
     $statement = $db->prepare($sql);
-    $statement->bind_param("ss", $username, $password);
+    $statement->bind_param("s", $username);
     $statement->execute();
     $result = $statement->get_result();
     if ($result->num_rows > 0) {
@@ -115,5 +115,40 @@ function updatePassword($db, $newPassword, $userId) {
         $stmt->close();
     }
 }
+
+function getPassword($db, $userId) {
+    $stmt = $db ->prepare("SELECT Password FROM user WHERE Id = ?");
+    if ($stmt) {
+        $stmt->bind_param("i", $userId);
+
+        if ($stmt->execute()) {
+            echo "Found password successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $result = $stmt->get_result();
+        $stmt->close();
+        
+        if ($result->num_rows > 0) {
+            $obj = $result->fetch_object();
+            return $obj -> Password;
+        }  
+    }
+    return null;
+}
+
+// function insertArticle($db, $comment, $filename, $userId) {
+//     $stmt = $db ->prepare("UPDATE user SET Password = ? WHERE Id = ?");
+//     if ($stmt) {
+//         $stmt->bind_param("si", $newPassword, $userId);
+
+//         if ($stmt->execute()) {
+//             echo "Password changed successfully.";
+//         } else {
+//             echo "Error: " . $stmt->error;
+//         }
+//         $stmt->close();
+//     }
+// }
 
 ?>

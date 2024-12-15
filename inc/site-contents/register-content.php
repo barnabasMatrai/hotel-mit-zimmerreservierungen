@@ -31,7 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $userExists = userExists($db, $username);
 
         if (!$userExists) {
-            insertUser($db, $title, $firstname, $lastname, $email, $username, $password);
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            insertUser($db, $title, $firstname, $lastname, $email, $username, $hashedPassword);
         }
     }
 
