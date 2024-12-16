@@ -2,6 +2,7 @@
 
 $takenUsernames = array("Rita12", "Esther56", "user1");
 
+$title = $firstname = $lastname = $email = $username = $password = $repeatPassword = '';
 $allFieldsFilledCorrect = $firstnameCorrect = $lastnameCorrect = $passwordSame = $usernameTaken = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -50,30 +51,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="form-group col-auto">
             <label for="firstname">Vorname:</label>
-            <input name="firstname" id="firstname" class="form-control" required>
+            <?php echo create_input_tag("text", "firstname", $firstname);?>
             <?php check_and_echo_error($firstnameCorrect);?>
         </div>
         <div class="form-group col-auto">
             <label for="lastname">Nachname:</label>
-            <input name="lastname" id="lastname" class="form-control" required>
+            <?php echo create_input_tag("text", "lastname", $lastname);?>
             <?php check_and_echo_error($lastnameCorrect);?>
         </div>
         <div class="form-group col-auto">
             <label for="email">Email-Adresse:</label>
-            <input name="email" type="email" id="email" class="form-control" required>
+            <?php echo create_input_tag("email", "email", $email);?>
         </div>
         <div class="form-group col-auto">
             <label for="username">Username:</label>
-            <input name="username" id="username" class="form-control" required>
+            <?php echo create_input_tag("text", "username", $username);?>
             <?php check_and_echo_error($usernameTaken);?>
         </div>
         <div class="form-group col-auto">
             <label for="password">Passwort:</label>
-            <input name="password" type="password" id="password" class="form-control" required>
+            <?php echo create_input_tag("password", "password", $password);?>
         </div>
         <div class="form-group col-auto">
             <label for="repeatPassword">Passwort wiederholen:</label>
-            <input name="repeatPassword" type="password" id="repeatPassword" class="form-control" required>
+            <?php echo create_input_tag("password", "repeatPassword", $repeatPassword);?>
             <?php check_and_echo_error($passwordSame);?>
         </div>
         <div class="form-group col-auto">

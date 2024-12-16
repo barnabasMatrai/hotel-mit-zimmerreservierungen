@@ -19,5 +19,5 @@
             <p><?= $reservation -> Cat ? 'Katze' : 'Keine Katze' ;?></p>
         </li>
         <?php endforeach; ?>
-    </ul>    
+    </ul>
 </div>
