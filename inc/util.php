@@ -102,6 +102,17 @@ function getReservations($db, $userid) {
     return null;
 }
 
+function getUsers($db) {
+    $result = $db->query("SELECT * FROM user
+                          ORDER BY Id");
+    $array = [];
+    while ($obj = $result->fetch_object()) {
+        $array[] = $obj;
+    }
+
+    return $array;
+}
+
 function updatePassword($db, $newPassword, $userId) {
     $stmt = $db ->prepare("UPDATE user SET Password = ? WHERE Id = ?");
     if ($stmt) {

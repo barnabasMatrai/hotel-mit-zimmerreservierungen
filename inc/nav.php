@@ -29,6 +29,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="articles.php">Articles</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="user-management.php">Manage users</a>
+            </li>
         </ul>
     </div>
 </nav>

@@ -1,6 +1,6 @@
 <?php
 
-$allFieldsFilledCorrect = $firstnameCorrect = $lastnameCorrect = $passwordSame = $usernameTaken = '';
+$allFieldsFilledCorrect = $firstnameCorrect = $lastnameCorrect = $usernameTaken = '';
 $title = $_SESSION['title'];
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
@@ -65,9 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         <div class="form-group col-auto">
             <label for="title">Anrede:</label>
             <select name="title" id="title" class="form-control">
-                <option value="Herr" <?php select_title("herr") ?>>Herr</option>
-                <option value="Frau" <?php select_title("frau") ?>>Frau</option>
-                <option value="Divers" <?php select_title("divers") ?>>Divers</option>
+                <option value="Herr" <?php select_title($_SESSION['title'], "herr") ?>>Herr</option>
+                <option value="Frau" <?php select_title($_SESSION['title'], "frau") ?>>Frau</option>
+                <option value="Divers" <?php select_title($_SESSION['title'], "divers") ?>>Divers</option>
             </select>
         </div>
         <div class="form-group col-auto">

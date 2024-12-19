@@ -23,9 +23,9 @@ function is_password_same($password, $repeatPassword) {
     return $password === $repeatPassword;
 }
 
-function select_title($title)
+function select_title($title1, $title2)
 {
-    if (isset($_SESSION['title']) and $title === $_SESSION['title']) {
+    if (isset($title1) and $title2 === $title1) {
         echo 'selected';
     }
 }
