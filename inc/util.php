@@ -58,11 +58,11 @@ function insertUser($db, $title, $firstname, $lastname, $email, $username, $pass
     }
 }
 
-function insertReservation($db, $userid, $arrival, $departure, $breakfast, $parking, $cat) {
-    $stmt = $db->prepare("INSERT INTO reservation (UserId, Arrival, Departure, Breakfast, Parking, Cat) 
-                            VALUES (?, ?, ?, ?, ?, ?)");
+function insertReservation($db, $userid, $arrival, $departure, $breakfast, $parking, $cat, $price, $bookingDate) {
+    $stmt = $db->prepare("INSERT INTO reservation (UserId, Arrival, Departure, Breakfast, Parking, Cat, Price, BookingDate) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     if ($stmt) {
-        $stmt->bind_param("issiii", $userid, $arrival, $departure, $breakfast, $parking, $cat);
+        $stmt->bind_param("issiiiis", $userid, $arrival, $departure, $breakfast, $parking, $cat, $price, $bookingDate);
 
         if ($stmt->execute()) {
             echo "New record created successfully.";
@@ -210,6 +210,17 @@ function updateIsActive($isActive, $userId) {
         }
         $stmt->close();
     }
+}
+
+function isReservationAvailable($arrival, $departure) {
+    $db = getDb();
+    
+    $sql = "SELECT * FROM reservation
+            WHERE Arrival BETWEEN ? AND ? OR Departure BETWEEN ? AND ?";
+    $statement = $db->prepare($sql);
+    $statement->bind_param("ssss", $arrival, $departure, $arrival, $departure);
+    $statement->execute();
+    return !(bool) $statement->fetch();
 }
 
 ?>

@@ -4,7 +4,7 @@
         exit("redirect to index");
     }
 
-    $datesCorrect = '';
+    $datesCorrect = $reservationNotAvailableCorrect = '';
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         if (isset($_POST['arrival']) and
@@ -26,14 +26,21 @@
                 $datesCorrect = "Anreise oder Abreise ist nicht korrekt!";
             }
 
-            if (empty($allFieldsFilledCorrect) and empty($datesCorrect)) {
+            if (!isReservationAvailable($arrival, $departure)) {
+                $reservationNotAvailableCorrect = "Das Zimmer ist schon für dieser Zeit vergeben!";
+            }
+
+            if (empty($allFieldsFilledCorrect) and empty($datesCorrect) and empty($reservationNotAvailableCorrect)) {
+                $basePrice = 300;
+                $breakfastPrice = $breakfast ? 25 : 0;
+                $parkingPrice = $parking ? 100 : 0;
+                $catPrice = $cat ? 5 : 0;
+                $price = $basePrice + $breakfastPrice + $parkingPrice + $catPrice;
+
+                $bookingDate = date("Y-m-d H:i:s");
+
                 $db = getDb();
-                insertReservation($db, $_SESSION['userid'], $arrival, $departure, $breakfast, $parking, $cat);
-                $_SESSION['arrival'] = $arrival;
-                $_SESSION['departure'] = $departure;
-                $_SESSION['breakfast'] = $breakfast;
-                $_SESSION['parking'] = $parking;
-                $_SESSION['cat'] = $cat;
+                insertReservation($db, $_SESSION['userid'], $arrival, $departure, $breakfast, $parking, $cat, $price, $bookingDate);
             }
         }
     }
@@ -48,11 +55,12 @@
                 <label for="departure">Abreise:</label>
                 <input type="date" name="departure" id="departure" class="form-control" required>
                 <?php check_and_echo_error($datesCorrect);?>
+                <?php check_and_echo_error($reservationNotAvailableCorrect);?>
             </div>
         </div>
         <div class="d-flex justify-content-start flex-row">
             <div class="form-group col-auto flex-shrink-1">
-                <p>Mit/Ohne Frühstück:</p>
+                <p>Mit/Ohne Frühstück (+25€):</p>
                 <div class="float-left">
                     <label for="withbreakfast">mit</label>
                     <input type="radio" name="breakfast" id="withbreakfast" value="1" required>
@@ -63,7 +71,7 @@
                 </div>
             </div>
             <div class="form-group col-auto flex-shrink-1">
-                <p>Mit/Ohne Parkplatz:</p>
+                <p>Mit/Ohne Parkplatz (+100€):</p>
                 <div class="float-left">
                     <label for="withparking">mit</label>
                     <input type="radio" name="parking" id="withparking" value="1" required>
@@ -76,9 +84,12 @@
         </div>
         <div class="flex-row">
             <div class="form-group col-auto flex-shrink-1">
-                <label for="cat">Ich bringe eine Katze mit:</label>
+                <label for="cat">Ich bringe eine Katze mit (+5€):</label>
                 <input class="align-middle" type="checkbox" value="cat" name="cat" id="cat">
             </div>
+        </div>
+        <div class="flex-row">
+            <p class="text-primary">Grundpreis: 300€</p>
         </div>
         <div class="flex-row">
             <div class="form-group col-auto flex-shrink-1">
