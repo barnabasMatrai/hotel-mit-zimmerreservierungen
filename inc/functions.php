@@ -7,8 +7,8 @@ function check_and_echo_error($data) {
     }
 }
 
-function create_input_tag($type, $name, $value) {
-    return '<input name="' . $name . '" type="' . $type . '" id="' . $name . '" class="form-control" value="' . $value . '" required>';
+function create_input_tag($type, $name, $id, $value) {
+    return '<input name="' . $name . '" type="' . $type . '" id="' . $id . '" class="form-control" value="' . $value . '" required>';
 }
 
 function test_capitalized($data) {
@@ -30,8 +30,25 @@ function select_title($title1, $title2)
     }
 }
 
+function select_isActive($isActive1, $isActive2)
+{
+    if (isset($isActive1) and $isActive2 == $isActive1) {
+        echo 'checked';
+    }
+}
+
 function arrival_and_departure_valid($arrival, $departure) {
     return $arrival > date('Y-m-d') and $arrival < $departure;
+}
+
+function findUser($users, $userId) {
+    foreach ($users as $user) {
+        if ($user -> Id == $userId) {
+            return $user;
+        }
+    }
+
+    return NULL;
 }
 
 ?>

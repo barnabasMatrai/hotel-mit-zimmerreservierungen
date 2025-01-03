@@ -32,8 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $userExists = userExists($db, $username);
 
         if (!$userExists) {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            insertUser($db, $title, $firstname, $lastname, $email, $username, $hashedPassword);
+            insertUser($db, $title, $firstname, $lastname, $email, $username, $password);
         }
     }
 
@@ -51,30 +50,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="form-group col-auto">
             <label for="firstname">Vorname:</label>
-            <?php echo create_input_tag("text", "firstname", $firstname);?>
+            <?php echo create_input_tag("text", "firstname", "firstname", $firstname);?>
             <?php check_and_echo_error($firstnameCorrect);?>
         </div>
         <div class="form-group col-auto">
             <label for="lastname">Nachname:</label>
-            <?php echo create_input_tag("text", "lastname", $lastname);?>
+            <?php echo create_input_tag("text", "lastname", "lastname", $lastname);?>
             <?php check_and_echo_error($lastnameCorrect);?>
         </div>
         <div class="form-group col-auto">
             <label for="email">Email-Adresse:</label>
-            <?php echo create_input_tag("email", "email", $email);?>
+            <?php echo create_input_tag("email", "email", "email", $email);?>
         </div>
         <div class="form-group col-auto">
             <label for="username">Username:</label>
-            <?php echo create_input_tag("text", "username", $username);?>
+            <?php echo create_input_tag("text", "username", "username", $username);?>
             <?php check_and_echo_error($usernameTaken);?>
         </div>
         <div class="form-group col-auto">
             <label for="password">Passwort:</label>
-            <?php echo create_input_tag("password", "password", $password);?>
+            <?php echo create_input_tag("password", "password", "password", $password);?>
         </div>
         <div class="form-group col-auto">
             <label for="repeatPassword">Passwort wiederholen:</label>
-            <?php echo create_input_tag("password", "repeatPassword", $repeatPassword);?>
+            <?php echo create_input_tag("password", "repeatPassword", "repeatPassword", $repeatPassword);?>
             <?php check_and_echo_error($passwordSame);?>
         </div>
         <div class="form-group col-auto">

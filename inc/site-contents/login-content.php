@@ -22,8 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user) {
                 $hashedPassword = getPassword($db, $user["Id"]);
                 $isPasswordCorrect = password_verify($password, $hashedPassword);
+
+                $isUserActive = $user["IsActive"];
                 
-                if ($isPasswordCorrect) {
+                if (!$isPasswordCorrect || !$isUserActive) {
+                    echo "User not found.";
+                } else {
                     $_SESSION["userid"] = $user["Id"];
                     $_SESSION["title"] = $user["Title"];
                     $_SESSION["firstname"] = $user["FirstName"];
@@ -34,8 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
                     header("Location: ../sites/login.php");
                     exit("redirect to index");
-                } else {
-                    echo "User not found.";
                 }
             }
         }

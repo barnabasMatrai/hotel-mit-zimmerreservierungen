@@ -38,11 +38,13 @@ function getUserSecure($db, $username) {
 }
 
 function insertUser($db, $title, $firstname, $lastname, $email, $username, $password) {
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
     $stmt = $db->prepare("INSERT INTO user (Title, FirstName, LastName, Email, UserName, Password, IsAdmin) 
                             VALUES (?, ?, ?, ?, ?, ?, ?)");
     if ($stmt) {
         $isAdmin = 0;
-        $stmt->bind_param("ssssssi", $title, $firstname, $lastname, $email, $username, $password, $isAdmin);
+        $stmt->bind_param("ssssssi", $title, $firstname, $lastname, $email, $username, $hashedPassword, $isAdmin);
 
         if ($stmt->execute()) {
             echo "New record created successfully.";
@@ -113,10 +115,14 @@ function getUsers($db) {
     return $array;
 }
 
-function updatePassword($db, $newPassword, $userId) {
+function updatePassword($newPassword, $userId) {
+    $db = getDb();
+
+    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
     $stmt = $db ->prepare("UPDATE user SET Password = ? WHERE Id = ?");
     if ($stmt) {
-        $stmt->bind_param("si", $newPassword, $userId);
+        $stmt->bind_param("si", $hashedPassword, $userId);
 
         if ($stmt->execute()) {
             echo "Password changed successfully.";
@@ -172,6 +178,38 @@ function getArticles($db) {
     }
 
     return $array;
+}
+
+function updateUser($userId, $title, $firstName, $lastName, $email) {
+    $db = getDb();
+
+    $stmt = $db ->prepare("UPDATE user SET Title = ?, FirstName = ?, LastName = ?, Email = ? WHERE Id = ?");
+    if ($stmt) {
+        $stmt->bind_param("ssssi", $title, $firstName, $lastName, $email, $userId);
+
+        if ($stmt->execute()) {
+            echo "Profile data updated successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+    }
+}
+
+function updateIsActive($isActive, $userId) {
+    $db = getDb();
+
+    $stmt = $db ->prepare("UPDATE user SET IsActive = ? WHERE Id = ?");
+    if ($stmt) {
+        $stmt->bind_param("ii", $isActive, $userId);
+
+        if ($stmt->execute()) {
+            echo "Active state changed successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+    }
 }
 
 ?>
