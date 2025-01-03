@@ -1,4 +1,9 @@
 <?php
+if (!isset($_SESSION["isAdmin"]) || !$_SESSION["isAdmin"]) {
+    header("Location: ../sites/login.php");
+    exit("redirect to index");
+}
+
 $fileUploaded = false;
 $uploadDir = "../resources/news/";
 

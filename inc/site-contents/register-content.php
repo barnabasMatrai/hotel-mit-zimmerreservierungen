@@ -1,4 +1,8 @@
 <?php
+if (isset($_SESSION["username"])) {
+    header("Location: ../sites/login.php");
+    exit("redirect to index");
+}
 
 $takenUsernames = array("Rita12", "Esther56", "user1");
 

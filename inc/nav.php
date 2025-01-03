@@ -14,24 +14,32 @@
             <li class="nav-item">
                 <a class="nav-link" href="login.php">Login</a>
             </li>
+            <?php if (!isset($_SESSION["username"])): ?>
             <li class="nav-item">
                 <a class="nav-link" href="register.php">Register</a>
             </li>
+            <?php endif; ?>
+            <?php if (isset($_SESSION["username"])): ?>
             <li class="nav-item">
                 <a class="nav-link" href="room-reservation.php">Reserve a room</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="room-reservations.php">Room reservations</a>
             </li>
+            <?php endif; ?>
+            <?php if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]): ?>
             <li class="nav-item">
                 <a class="nav-link" href="article.php">Article</a>
             </li>
+            <?php endif; ?>
             <li class="nav-item">
                 <a class="nav-link" href="articles.php">Articles</a>
             </li>
+            <?php if (isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"]): ?>
             <li class="nav-item">
                 <a class="nav-link" href="user-management.php">Manage users</a>
             </li>
+            <?php endif; ?>
         </ul>
     </div>
 </nav>
