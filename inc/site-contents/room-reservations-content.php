@@ -17,6 +17,7 @@
             <p><?= $reservation -> Breakfast ? 'Mit Frühstück' : 'Ohne Frühstück' ;?></p>
             <p><?= $reservation -> Parking ? 'Mit Parkplatz' : 'Ohne Parkplatz' ;?></p>
             <p><?= $reservation -> Cat ? 'Katze' : 'Keine Katze' ;?></p>
+            <p><?= "Status: " . $reservation -> Status ;?></p>
         </li>
         <?php endforeach; ?>
     </ul>

@@ -76,6 +76,36 @@ function insertReservation($db, $userid, $arrival, $departure, $breakfast, $park
     }
 }
 
+function getAllReservations() {
+    $db = getDb();
+
+    $stmt = $db->prepare("SELECT * FROM reservation");
+    if ($stmt) {
+        // $stmt->bind_param("i", $userid);
+
+        if ($stmt->execute()) {
+            echo "Reservations found successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $result = $stmt->get_result();
+
+        $array = [];
+        while ($obj = $result->fetch_object()) {
+            $array[] = $obj;
+        }
+
+        $stmt->close();
+
+        return $array;
+    } else {
+        echo "Error preparing the statement: " . $db->error;
+    }
+
+    return null;
+}
+
 function getReservations($db, $userid) {
     $stmt = $db->prepare("SELECT * FROM reservation WHERE UserId = ?");
     if ($stmt) {
@@ -97,6 +127,32 @@ function getReservations($db, $userid) {
         $stmt->close();
 
         return $array;
+    } else {
+        echo "Error preparing the statement: " . $db->error;
+    }
+
+    return null;
+}
+
+function getReservation($id) {
+    $db = getDb();
+
+    $stmt = $db->prepare("SELECT * FROM reservation WHERE Id = ?");
+    if ($stmt) {
+        $stmt->bind_param("i", $id);
+
+        if ($stmt->execute()) {
+            echo "Reservation found successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $result = $stmt->get_result();
+        $obj = $result->fetch_object();
+
+        $stmt->close();
+
+        return $obj;
     } else {
         echo "Error preparing the statement: " . $db->error;
     }
@@ -155,7 +211,7 @@ function getPassword($db, $userId) {
 }
 
 function insertArticle($db, $comment, $filename, $uploadDate) {
-    $stmt = $db ->prepare("INSERT article (comment, filename, upload_date)
+    $stmt = $db ->prepare("INSERT article (Comment, Filename, UploadDate)
                            VALUES (?, ?, ?)");
     if ($stmt) {
         $stmt->bind_param("sss", $comment, $filename, $uploadDate);
@@ -171,7 +227,7 @@ function insertArticle($db, $comment, $filename, $uploadDate) {
 
 function getArticles($db) {
     $result = $db->query("SELECT * FROM article
-                          ORDER BY upload_date DESC");
+                          ORDER BY UploadDate DESC");
     $array = [];
     while ($obj = $result->fetch_object()) {
         $array[] = $obj;
@@ -205,6 +261,22 @@ function updateIsActive($isActive, $userId) {
 
         if ($stmt->execute()) {
             echo "Active state changed successfully.";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+    }
+}
+
+function updateStatus($status, $id) {
+    $db = getDb();
+
+    $stmt = $db ->prepare("UPDATE reservation SET Status = ? WHERE Id = ?");
+    if ($stmt) {
+        $stmt->bind_param("si", $status, $id);
+
+        if ($stmt->execute()) {
+            echo "Status changed successfully.";
         } else {
             echo "Error: " . $stmt->error;
         }

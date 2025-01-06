@@ -72,9 +72,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         <div class="form-group col-auto">
             <label for="title">Anrede:</label>
             <select name="title" id="title" class="form-control">
-                <option value="Herr" <?php select_title($_SESSION['title'], "Herr") ?>>Herr</option>
-                <option value="Frau" <?php select_title($_SESSION['title'], "Frau") ?>>Frau</option>
-                <option value="Divers" <?php select_title($_SESSION['title'], "Divers") ?>>Divers</option>
+                <option value="Herr" <?php select_choice($_SESSION['title'], "Herr") ?>>Herr</option>
+                <option value="Frau" <?php select_choice($_SESSION['title'], "Frau") ?>>Frau</option>
+                <option value="Divers" <?php select_choice($_SESSION['title'], "Divers") ?>>Divers</option>
             </select>
         </div>
         <div class="form-group col-auto">

@@ -39,6 +39,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="user-management.php">Manage users</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="reservation-management.php">Manage reservations</a>
+            </li>
             <?php endif; ?>
         </ul>
     </div>

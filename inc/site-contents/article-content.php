@@ -75,7 +75,7 @@ function createAndSaveResizedImage($uploadFile, $uploadDir) {
 <div class="d-flex justify-content-center">
     <form enctype="multipart/form-data" method="post">
         <div class="form-group col-auto">
-            <input type="file" name="file">
+            <input class="form-control" type="file" name="file">
             <?php check_and_echo_error($fileCorrect);?>
         </div>
         <div class="form-group col-auto">
@@ -84,7 +84,7 @@ function createAndSaveResizedImage($uploadFile, $uploadDir) {
             <?php check_and_echo_error($commentCorrect);?>
         </div>
         <div class="form-group col-auto">
-            <input type="submit" value="Hochladen">
+            <input class="btn btn-primary m-2" type="submit" value="Hochladen">
         </div>
         <?php if ($fileUploaded): ?>
             <div class="alert alert-success"><p class="mb-0">The image was uploaded!</p></div>
