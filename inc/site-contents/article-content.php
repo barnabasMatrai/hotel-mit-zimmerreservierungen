@@ -10,7 +10,7 @@ $uploadDir = "../resources/news/";
 $fileCorrect = $commentCorrect = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $extensions = array("png","gif","jpeg");
+    $extensions = array("png");
     $extension = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
     $isImage = matchesAny($extension, $extensions);
 
@@ -81,7 +81,7 @@ function createAndSaveResizedImage($uploadFile, $uploadDir) {
         </div>
         <div class="form-group col-auto">
             <label for="comment">Artikel:</label>
-            <textarea id="comment" name="comment" rows="3" cols="50"></textarea>
+            <textarea class="form-control" id="comment" name="comment" rows="3" cols="50"></textarea>
             <?php check_and_echo_error($commentCorrect);?>
         </div>
         <div class="form-group col-auto">

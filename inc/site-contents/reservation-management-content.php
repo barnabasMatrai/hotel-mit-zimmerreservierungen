@@ -27,7 +27,7 @@
                 <p><?= $reservation->Cat ? 'Katze' : 'Keine Katze'; ?></p>
                 <p><?= "Status: " . $reservation -> Status ;?></p>
             </li>
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <form class="m-2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <div class="form-group col-auto">
                     <label for="<?= "status" . $reservation -> Id?>">Status ändern:</label>
                     <select name="status" id="<?= "status" . $reservation -> Id?>" class="form-control">
@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group col-auto">
                     <input type="hidden" name="reservationId" value="<?= $reservation -> Id; ?>">
-                    <button type="submit" class="btn btn-primary">Speichern</button>
+                    <button type="submit" class="btn btn-primary my-2">Speichern</button>
                 </div>
             </form>
         <?php endforeach; ?>
