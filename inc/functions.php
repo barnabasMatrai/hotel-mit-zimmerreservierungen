@@ -11,6 +11,10 @@ function create_input_tag($type, $name, $id, $value) {
     return '<input name="' . $name . '" type="' . $type . '" id="' . $id . '" class="form-control" value="' . $value . '" required>';
 }
 
+function create_radio_input_tag($type, $name, $id, $value, $requiredText, $checkedText) {
+    return '<input name="' . $name . '" type="' . $type . '" id="' . $id . '" value="' . $value . '" ' . $requiredText . ' ' . $checkedText . '>';
+}
+
 function test_capitalized($data) {
     return strlen($data) > 0 ? ctype_upper($data[0]) : true;
 }

@@ -4,6 +4,7 @@
         exit("redirect to index");
     }
 
+    $arrival = $departure = $breakfast = $parking = $cat = null;
     $datesCorrect = $reservationNotAvailableCorrect = '';
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
@@ -47,13 +48,13 @@
 ?>
 
 <div class="d-flex justify-content-center">
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <form class="m-2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <div class="flex-row">
             <div class="form-group col-auto flex-shrink-1">
                 <label for="arrival">Anreise:</label>
-                <input type="date" name="arrival" id="arrival" class="form-control" required>
+                <?php echo create_input_tag("date", "arrival", "arrival", $arrival);?>
                 <label for="departure">Abreise:</label>
-                <input type="date" name="departure" id="departure" class="form-control" required>
+                <?php echo create_input_tag("date", "departure", "departure", $departure);?>
                 <?php check_and_echo_error($datesCorrect);?>
                 <?php check_and_echo_error($reservationNotAvailableCorrect);?>
             </div>
@@ -64,11 +65,11 @@
                     <legend class="fs-5">Mit/Ohne Frühstück (+25€):</legend>
                     <div class="float-left">
                         <label for="withbreakfast">mit</label>
-                        <input type="radio" name="breakfast" id="withbreakfast" value="1" required>
+                        <?php echo create_radio_input_tag("radio", "breakfast", "withbreakfast", 1, "required", $breakfast ? "checked" : "");?>
                     </div>
                     <div class="float-right">
                         <label for="withoutbreakfast">ohne</label>
-                        <input type="radio" name="breakfast" id="withoutbreakfast" value="0">
+                        <?php echo create_radio_input_tag("radio", "breakfast", "withoutbreakfast", 0, "required" , $breakfast || $breakfast === null ? "" : "checked");?>
                     </div>
                 </fieldset>
             </div>
@@ -77,11 +78,11 @@
                     <legend class="fs-5">Mit/Ohne Parkplatz (+100€):</legend>
                     <div class="float-left">
                         <label for="withparking">mit</label>
-                        <input type="radio" name="parking" id="withparking" value="1" required>
+                        <?php echo create_radio_input_tag("radio", "parking", "withparking", 1, "required" , $parking ? "checked" : "");?>
                     </div>
                     <div class="float-right">
                         <label for="withoutparking">ohne</label>
-                        <input type="radio" name="parking" id="withoutparking" value="0">
+                        <?php echo create_radio_input_tag("radio", "parking", "withoutparking", 0, "required", $parking || $parking === null ? "" : "checked");?>
                     </div>
                 </fieldset>
             </div>
@@ -89,7 +90,7 @@
         <div class="flex-row">
             <div class="form-group col-auto flex-shrink-1">
                 <label for="cat">Ich bringe eine Katze mit (+5€):</label>
-                <input class="align-middle" type="checkbox" value="cat" name="cat" id="cat">
+                <?php echo create_radio_input_tag("checkbox", "cat", "cat", 0, "", $cat ? "checked" : "");?>
             </div>
         </div>
         <div class="flex-row bg-info">

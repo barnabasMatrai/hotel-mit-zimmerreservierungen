@@ -34,7 +34,7 @@ if (isset($_POST["oldpassword"]) and isset($_POST["newpassword"]) and isset($_PO
 ?>
 
 <div class="d-flex justify-content-center">
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <form class="m-2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <div class="form-group col-auto">
             <label for="oldpassword">Altes Passwort:</label>
             <input name="oldpassword" type="password" id="oldpassword" class="form-control" required>
