@@ -59,27 +59,31 @@
             </div>
         </div>
         <div class="d-flex justify-content-start flex-row">
-            <div class="form-group col-auto flex-shrink-1">
-                <p>Mit/Ohne Frühstück (+25€):</p>
-                <div class="float-left">
-                    <label for="withbreakfast">mit</label>
-                    <input type="radio" name="breakfast" id="withbreakfast" value="1" required>
-                </div>
-                <div class="float-right">
-                    <label for="withoutbreakfast">ohne</label>
-                    <input type="radio" name="breakfast" id="withoutbreakfast" value="0">
-                </div>
+            <div class="form-group col-auto flex-shrink-1 m-1">
+                <fieldset>
+                    <legend class="fs-5">Mit/Ohne Frühstück (+25€):</legend>
+                    <div class="float-left">
+                        <label for="withbreakfast">mit</label>
+                        <input type="radio" name="breakfast" id="withbreakfast" value="1" required>
+                    </div>
+                    <div class="float-right">
+                        <label for="withoutbreakfast">ohne</label>
+                        <input type="radio" name="breakfast" id="withoutbreakfast" value="0">
+                    </div>
+                </fieldset>
             </div>
-            <div class="form-group col-auto flex-shrink-1">
-                <p>Mit/Ohne Parkplatz (+100€):</p>
-                <div class="float-left">
-                    <label for="withparking">mit</label>
-                    <input type="radio" name="parking" id="withparking" value="1" required>
-                </div>
-                <div class="float-right">
-                    <label for="withoutparking">ohne</label>
-                    <input type="radio" name="parking" id="withoutparking" value="0">
-                </div>
+            <div class="form-group col-auto flex-shrink-1 m-1">
+                <fieldset>
+                    <legend class="fs-5">Mit/Ohne Parkplatz (+100€):</legend>
+                    <div class="float-left">
+                        <label for="withparking">mit</label>
+                        <input type="radio" name="parking" id="withparking" value="1" required>
+                    </div>
+                    <div class="float-right">
+                        <label for="withoutparking">ohne</label>
+                        <input type="radio" name="parking" id="withoutparking" value="0">
+                    </div>
+                </fieldset>
             </div>
         </div>
         <div class="flex-row">
@@ -88,8 +92,8 @@
                 <input class="align-middle" type="checkbox" value="cat" name="cat" id="cat">
             </div>
         </div>
-        <div class="flex-row">
-            <p class="text-primary">Grundpreis: 300€</p>
+        <div class="flex-row bg-info">
+            <p>Grundpreis: 300€</p>
         </div>
         <div class="flex-row">
             <div class="form-group col-auto flex-shrink-1">

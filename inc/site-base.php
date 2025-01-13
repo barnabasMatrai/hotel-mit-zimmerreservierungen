@@ -6,7 +6,7 @@ include 'util.php';
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="de">
 
 <head>
     <title>Cat Hotel</title>

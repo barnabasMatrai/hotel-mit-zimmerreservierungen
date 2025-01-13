@@ -29,7 +29,7 @@
             </li>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <div class="form-group col-auto">
-                    <label for="title">Status ändern:</label>
+                    <label for="<?= "status" . $reservation -> Id?>">Status ändern:</label>
                     <select name="status" id="<?= "status" . $reservation -> Id?>" class="form-control">
                         <option value="neu" <?php select_choice($reservation -> Status, "neu") ?>>neu</option>
                         <option value="bestätigt" <?php select_choice($reservation -> Status, "bestätigt") ?>>bestätigt</option>

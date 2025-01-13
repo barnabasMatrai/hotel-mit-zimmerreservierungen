@@ -5,13 +5,13 @@
             <p>Barnabas Matrai</p>
             <p>Email Adresse: matrai.barnabas1@gmail.com</p>
             <p>Telephonenummer: +36 30 390 9622</p>
-            <img class="owner-image" src="../resources/img/Profilfoto_Barnabas.png">
+            <img class="owner-image" src="../resources/img/Profilfoto_Barnabas.png" alt="Barnabas Matrai">
         </div>
         <div class="col-sm owner-div">
             <p>Edin Sijaric</p>
             <p>Email Adresse: mcedjin@gmail.com</p>
             <P>Telephonenummer: +43 6605849605</P>
-            <img class="owner-image" src="../resources/img/Profilfoto_Edin.png">
+            <img class="owner-image" src="../resources/img/Profilfoto_Edin.png" alt="Edin Sijaric">
         </div>
     </div>
 

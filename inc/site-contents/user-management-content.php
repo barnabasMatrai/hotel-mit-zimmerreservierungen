@@ -99,15 +99,17 @@
                     <div class="collapse" id="<?= "collapseIsActive" . $user->Id ?>" data-parent="#accordion<?= $user->Id ?>">
                         <div class="card card-body">
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                                <p>Benutzer ist Aktiv:</p>
-                                <div class="float-left">
-                                    <label for="<?= "isActive" . $user -> Id?>">ja</label>
-                                    <input type="radio" name="isActive" id="<?= "isActive" . $user -> Id?>" value="1" required <?php select_isActive($user -> IsActive, 1); ?>>
-                                </div>
-                                <div class="float-right">
-                                    <label for="<?= "isNotActive" . $user -> Id?>">nein</label>
-                                    <input type="radio" name="isActive" id="<?= "isNotActive" . $user -> Id?>" value="0" <?php select_isActive($user -> IsActive, 0); ?>>
-                                </div>
+                                <fieldset>
+                                    <legend>Benutzer ist Aktiv:</legend>
+                                    <div class="float-left">
+                                        <label for="<?= "isActive" . $user -> Id?>">ja</label>
+                                        <input type="radio" name="isActive" id="<?= "isActive" . $user -> Id?>" value="1" required <?php select_isActive($user -> IsActive, 1); ?>>
+                                    </div>
+                                    <div class="float-right">
+                                        <label for="<?= "isNotActive" . $user -> Id?>">nein</label>
+                                        <input type="radio" name="isActive" id="<?= "isNotActive" . $user -> Id?>" value="0" <?php select_isActive($user -> IsActive, 0); ?>>
+                                    </div>
+                                </fieldset>
                                 <div class="form-group col-auto">
                                     <input type="hidden" name="type" value="<?= "changeIsActive"; ?>">
                                     <input type="hidden" name="id" value="<?= $user -> Id; ?>">
