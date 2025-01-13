@@ -9,7 +9,7 @@ function getDb() {
         $db = new mysqli($config["host"], $config["user"], $config["password"], $config["database"]);
     
         if ($db->connect_error) {
-            echo "Connection Error: " . $db->connect_error;
+            // echo "Connection Error: " . $db->connect_error;
             exit();
         }
     }
@@ -53,14 +53,14 @@ function insertUser($title, $firstname, $lastname, $email, $username, $password)
         $stmt->bind_param("ssssssi", $title, $firstname, $lastname, $email, $username, $hashedPassword, $isAdmin);
 
         if ($stmt->execute()) {
-            echo "New record created successfully.";
+            // echo "New record created successfully.";
         } else {
-            echo "Error: " . $stmt->error;
+            // echo "Error: " . $stmt->error;
         }
 
         $stmt->close();
     } else {
-        echo "Error preparing the statement: " . $db->error;
+        // echo "Error preparing the statement: " . $db->error;
     }
 }
 
@@ -73,14 +73,14 @@ function insertReservation($userid, $arrival, $departure, $breakfast, $parking, 
         $stmt->bind_param("issiiiis", $userid, $arrival, $departure, $breakfast, $parking, $cat, $price, $bookingDate);
 
         if ($stmt->execute()) {
-            echo "New record created successfully.";
+            // echo "New record created successfully.";
         } else {
-            echo "Error: " . $stmt->error;
+            // echo "Error: " . $stmt->error;
         }
 
         $stmt->close();
     } else {
-        echo "Error preparing the statement: " . $db->error;
+        // echo "Error preparing the statement: " . $db->error;
     }
 }
 
@@ -92,9 +92,9 @@ function getAllReservations() {
         // $stmt->bind_param("i", $userid);
 
         if ($stmt->execute()) {
-            echo "Reservations found successfully.";
+            // echo "Reservations found successfully.";
         } else {
-            echo "Error: " . $stmt->error;
+            // echo "Error: " . $stmt->error;
         }
 
         $result = $stmt->get_result();
@@ -108,7 +108,7 @@ function getAllReservations() {
 
         return $array;
     } else {
-        echo "Error preparing the statement: " . $db->error;
+        // echo "Error preparing the statement: " . $db->error;
     }
 
     return null;
@@ -122,9 +122,9 @@ function getReservations($userid) {
         $stmt->bind_param("i", $userid);
 
         if ($stmt->execute()) {
-            echo "Reservations found successfully.";
+            // echo "Reservations found successfully.";
         } else {
-            echo "Error: " . $stmt->error;
+            // echo "Error: " . $stmt->error;
         }
 
         $result = $stmt->get_result();
@@ -138,7 +138,7 @@ function getReservations($userid) {
 
         return $array;
     } else {
-        echo "Error preparing the statement: " . $db->error;
+        // echo "Error preparing the statement: " . $db->error;
     }
 
     return null;
@@ -152,9 +152,9 @@ function getReservation($id) {
         $stmt->bind_param("i", $id);
 
         if ($stmt->execute()) {
-            echo "Reservation found successfully.";
+            // echo "Reservation found successfully.";
         } else {
-            echo "Error: " . $stmt->error;
+            // echo "Error: " . $stmt->error;
         }
 
         $result = $stmt->get_result();
@@ -164,7 +164,7 @@ function getReservation($id) {
 
         return $obj;
     } else {
-        echo "Error preparing the statement: " . $db->error;
+        // echo "Error preparing the statement: " . $db->error;
     }
 
     return null;
@@ -193,9 +193,9 @@ function updatePassword($newPassword, $userId) {
         $stmt->bind_param("si", $hashedPassword, $userId);
 
         if ($stmt->execute()) {
-            echo "Password changed successfully.";
+            // echo "Password changed successfully.";
         } else {
-            echo "Error: " . $stmt->error;
+            // echo "Error: " . $stmt->error;
         }
         $stmt->close();
     }
@@ -209,9 +209,9 @@ function getPassword($userId) {
         $stmt->bind_param("i", $userId);
 
         if ($stmt->execute()) {
-            echo "Found password successfully.";
+            // echo "Found password successfully.";
         } else {
-            echo "Error: " . $stmt->error;
+            // echo "Error: " . $stmt->error;
         }
         $result = $stmt->get_result();
         $stmt->close();
@@ -233,9 +233,9 @@ function insertArticle($comment, $filename, $uploadDate) {
         $stmt->bind_param("sss", $comment, $filename, $uploadDate);
 
         if ($stmt->execute()) {
-            echo "New record created successfully.";
+            // echo "New record created successfully.";
         } else {
-            echo "Error: " . $stmt->error;
+            // echo "Error: " . $stmt->error;
         }
         $stmt->close();
     }
@@ -262,9 +262,9 @@ function updateUser($userId, $title, $firstName, $lastName, $email) {
         $stmt->bind_param("ssssi", $title, $firstName, $lastName, $email, $userId);
 
         if ($stmt->execute()) {
-            echo "Profile data updated successfully.";
+            // echo "Profile data updated successfully.";
         } else {
-            echo "Error: " . $stmt->error;
+            // echo "Error: " . $stmt->error;
         }
         $stmt->close();
     }
@@ -278,9 +278,9 @@ function updateIsActive($isActive, $userId) {
         $stmt->bind_param("ii", $isActive, $userId);
 
         if ($stmt->execute()) {
-            echo "Active state changed successfully.";
+            // echo "Active state changed successfully.";
         } else {
-            echo "Error: " . $stmt->error;
+            // echo "Error: " . $stmt->error;
         }
         $stmt->close();
     }
@@ -294,9 +294,9 @@ function updateStatus($status, $id) {
         $stmt->bind_param("si", $status, $id);
 
         if ($stmt->execute()) {
-            echo "Status changed successfully.";
+            // echo "Status changed successfully.";
         } else {
-            echo "Error: " . $stmt->error;
+            // echo "Error: " . $stmt->error;
         }
         $stmt->close();
     }
