@@ -84,31 +84,59 @@ function insertReservation($userid, $arrival, $departure, $breakfast, $parking, 
     }
 }
 
-function getAllReservations() {
+function getAllReservations($status) {
     $db = getDb();
 
-    $stmt = $db->prepare("SELECT * FROM reservation");
-    if ($stmt) {
-        // $stmt->bind_param("i", $userid);
-
-        if ($stmt->execute()) {
-            // echo "Reservations found successfully.";
+    if ($status) {
+        $stmt = $db->prepare("SELECT * FROM reservation WHERE Status = ?");
+        if ($stmt) {
+            $stmt->bind_param("s", $status);
+    
+            if ($stmt->execute()) {
+                // echo "Reservations found successfully.";
+            } else {
+                // echo "Error: " . $stmt->error;
+            }
+    
+            $result = $stmt->get_result();
+    
+            $array = [];
+            while ($obj = $result->fetch_object()) {
+                $array[] = $obj;
+            }
+    
+            $stmt->close();
+    
+            return $array;
         } else {
-            // echo "Error: " . $stmt->error;
+            // echo "Error preparing the statement: " . $db->error;
         }
-
-        $result = $stmt->get_result();
-
-        $array = [];
-        while ($obj = $result->fetch_object()) {
-            $array[] = $obj;
-        }
-
-        $stmt->close();
-
-        return $array;
     } else {
-        // echo "Error preparing the statement: " . $db->error;
+        $stmt = $db->prepare("SELECT * FROM reservation");
+        if ($stmt) {
+            // $stmt->bind_param("i", $userid);
+    
+            if ($stmt->execute()) {
+                // echo "Reservations found successfully.";
+            } else {
+                // echo "Error: " . $stmt->error;
+            }
+    
+            $result = $stmt->get_result();
+    
+            $array = [];
+            while ($obj = $result->fetch_object()) {
+                $array[] = $obj;
+            }
+    
+            $stmt->close();
+    
+            return $array;
+        } else {
+            // echo "Error preparing the statement: " . $db->error;
+        }
+    
+        return null;
     }
 
     return null;

@@ -4,10 +4,30 @@
         exit("redirect to index");
     }
 
-    $reservations = getAllReservations();
+    $status = '';
+
+    if (isset($_POST["filter"]) && $_POST["filter"]) {
+        $status = $_POST["filter"];
+    }
+    $reservations = getAllReservations($status);
 ?>
 
 <div class="d-flex justify-content-center">
+    <form class="m-2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <div class="form-group col-auto">
+            <label for="status">Anrede:</label>
+            <select name="filter" id="status" class="form-control">
+                <option value=""></option>    
+                <option value="neu">neu</option>
+                <option value="bestätigt">bestätigt</option>
+                <option value="storniert">storniert</option>
+            </select>
+        </div>
+        <div class="form-group col-auto">
+            <input type="hidden" name="reservationId" value="<?= -1; ?>">
+            <button type="submit" class="btn btn-primary my-2">Filter</button>
+        </div>
+    </form>
     <ul>
         <?php foreach ($reservations as $reservation): ?>
             <?php
