@@ -16,11 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             empty($password)) {
             $allFieldsFilledCorrect = 'Alle Felder müssen ausgefüllt sein!';
         } else {
-            $db = getDb();
-            $user = getUserSecure($db, $username);
+            $user = getUserSecure($username);
 
             if ($user) {
-                $hashedPassword = getPassword($db, $user["Id"]);
+                $hashedPassword = getPassword($user["Id"]);
                 $isPasswordCorrect = password_verify($password, $hashedPassword);
 
                 $isUserActive = $user["IsActive"];

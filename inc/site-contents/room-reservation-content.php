@@ -40,8 +40,7 @@
 
                 $bookingDate = date("Y-m-d H:i:s");
 
-                $db = getDb();
-                insertReservation($db, $_SESSION['userid'], $arrival, $departure, $breakfast, $parking, $cat, $price, $bookingDate);
+                insertReservation($_SESSION['userid'], $arrival, $departure, $breakfast, $parking, $cat, $price, $bookingDate);
             }
         }
     }
@@ -65,11 +64,11 @@
                     <legend class="fs-5">Mit/Ohne Frühstück (+25€):</legend>
                     <div class="float-left">
                         <label for="withbreakfast">mit</label>
-                        <?php echo create_radio_input_tag("radio", "breakfast", "withbreakfast", 1, "required", $breakfast ? "checked" : "");?>
+                        <?php echo create_bool_input_tag("radio", "breakfast", "withbreakfast", 1, "required", $breakfast ? "checked" : "");?>
                     </div>
                     <div class="float-right">
                         <label for="withoutbreakfast">ohne</label>
-                        <?php echo create_radio_input_tag("radio", "breakfast", "withoutbreakfast", 0, "required" , $breakfast || $breakfast === null ? "" : "checked");?>
+                        <?php echo create_bool_input_tag("radio", "breakfast", "withoutbreakfast", 0, "required" , $breakfast || $breakfast === null ? "" : "checked");?>
                     </div>
                 </fieldset>
             </div>
@@ -78,11 +77,11 @@
                     <legend class="fs-5">Mit/Ohne Parkplatz (+100€):</legend>
                     <div class="float-left">
                         <label for="withparking">mit</label>
-                        <?php echo create_radio_input_tag("radio", "parking", "withparking", 1, "required" , $parking ? "checked" : "");?>
+                        <?php echo create_bool_input_tag("radio", "parking", "withparking", 1, "required" , $parking ? "checked" : "");?>
                     </div>
                     <div class="float-right">
                         <label for="withoutparking">ohne</label>
-                        <?php echo create_radio_input_tag("radio", "parking", "withoutparking", 0, "required", $parking || $parking === null ? "" : "checked");?>
+                        <?php echo create_bool_input_tag("radio", "parking", "withoutparking", 0, "required", $parking || $parking === null ? "" : "checked");?>
                     </div>
                 </fieldset>
             </div>
@@ -90,7 +89,7 @@
         <div class="flex-row">
             <div class="form-group col-auto flex-shrink-1">
                 <label for="cat">Ich bringe eine Katze mit (+5€):</label>
-                <?php echo create_radio_input_tag("checkbox", "cat", "cat", 0, "", $cat ? "checked" : "");?>
+                <?php echo create_bool_input_tag("checkbox", "cat", "cat", 0, "", $cat ? "checked" : "");?>
             </div>
         </div>
         <div class="flex-row bg-info">

@@ -32,8 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($isValid) {
         createAndSaveResizedImage($_FILES["file"]["tmp_name"], $uploadDir);
         createAndSaveComment($comment, $uploadDir);
-        $db = getDb();
-        insertArticle($db, $comment, $_FILES["file"]["name"], date("Y-m-d H:i:s"));
+        
+        insertArticle($comment, $_FILES["file"]["name"], date("Y-m-d H:i:s"));
         $fileUploaded = true;
     }
     

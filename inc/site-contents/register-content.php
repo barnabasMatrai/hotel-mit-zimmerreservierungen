@@ -4,8 +4,6 @@ if (isset($_SESSION["username"])) {
     exit("redirect to index");
 }
 
-$takenUsernames = array("Rita12", "Esther56", "user1");
-
 $title = $firstname = $lastname = $email = $username = $password = $repeatPassword = '';
 $allFieldsFilledCorrect = $firstnameCorrect = $lastnameCorrect = $passwordSame = $usernameTaken = '';
 
@@ -21,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $firstnameCorrect = test_capitalized($firstname)  ? '' : 'Vorname muss mit einem Grossbuchstaben beginnen!';
         $lastnameCorrect = test_capitalized($lastname)  ? '' : 'Nachname muss mit einem Grossbuchstaben beginnen!';
     
-        $usernameTaken = test_username($username, $takenUsernames) ? 'Username ist schon vergeben!' : '';
+        $usernameTaken = userExists($username); ? 'Username ist schon vergeben!' : '';
         $passwordSame = is_password_same($password, $repeatPassword) ? '' : 'Das Passwort stimmt nicht überein!';
 
         $fieldsCorrect = !$firstnameCorrect && !$lastnameCorrect && !$usernameTaken && !$passwordSame;
@@ -32,11 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         empty($repeatPassword)) {
             $allFieldsFilledCorrect = 'Alle Felder müssen ausgefüllt sein!';
     } else if ($fieldsCorrect) {
-        $db = getDb();
-        $userExists = userExists($db, $username);
+        $userExists = userExists($username);
 
         if (!$userExists) {
-            insertUser($db, $title, $firstname, $lastname, $email, $username, $password);
+            insertUser($title, $firstname, $lastname, $email, $username, $password);
         }
     }
 

@@ -7,8 +7,7 @@ usort($files, function($a, $b) {
     return filectime($dir . $b) - filectime($dir . $a);
 });
 
-$db = getDb();
-$articles = getArticles($db);
+$articles = getArticles();
 ?>
 
 <div class="d-flex justify-content-center">

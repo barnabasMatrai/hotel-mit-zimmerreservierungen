@@ -4,8 +4,7 @@
         exit("redirect to index");
     }
 
-    $db = getDb();
-    $reservations = getReservations($db, $_SESSION["userid"]);
+    $reservations = getReservations($_SESSION["userid"]);
 ?>
 
 <div class="d-flex justify-content-center">

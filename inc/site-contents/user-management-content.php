@@ -4,8 +4,7 @@
         exit("redirect to index");
     }
 
-    $db = getDb();
-    $users = getUsers($db);
+    $users = getUsers();
 ?>
 
 <div class="d-flex justify-content-center">

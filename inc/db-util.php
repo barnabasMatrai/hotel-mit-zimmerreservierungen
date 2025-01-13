@@ -16,7 +16,9 @@ function getDb() {
     return $db;
 }
 
-function userExists($db, $username) {
+function userExists($username) {
+    $db = getDb();
+
     $sql = "SELECT * FROM user WHERE username=?";
     $statement = $db->prepare($sql);
     $statement->bind_param("s", $username);
@@ -24,7 +26,9 @@ function userExists($db, $username) {
     return (bool) $statement->fetch();
 }
 
-function getUserSecure($db, $username) {
+function getUserSecure($username) {
+    $db = getDb();
+
     $sql = "SELECT * FROM user WHERE UserName=?";
     $statement = $db->prepare($sql);
     $statement->bind_param("s", $username);
@@ -37,7 +41,9 @@ function getUserSecure($db, $username) {
     return null;
 }
 
-function insertUser($db, $title, $firstname, $lastname, $email, $username, $password) {
+function insertUser($title, $firstname, $lastname, $email, $username, $password) {
+    $db = getDb();
+
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     $stmt = $db->prepare("INSERT INTO user (Title, FirstName, LastName, Email, UserName, Password, IsAdmin) 
@@ -58,7 +64,9 @@ function insertUser($db, $title, $firstname, $lastname, $email, $username, $pass
     }
 }
 
-function insertReservation($db, $userid, $arrival, $departure, $breakfast, $parking, $cat, $price, $bookingDate) {
+function insertReservation($userid, $arrival, $departure, $breakfast, $parking, $cat, $price, $bookingDate) {
+    $db = getDb();
+
     $stmt = $db->prepare("INSERT INTO reservation (UserId, Arrival, Departure, Breakfast, Parking, Cat, Price, BookingDate) 
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     if ($stmt) {
@@ -106,7 +114,9 @@ function getAllReservations() {
     return null;
 }
 
-function getReservations($db, $userid) {
+function getReservations($userid) {
+    $db = getDb();
+
     $stmt = $db->prepare("SELECT * FROM reservation WHERE UserId = ?");
     if ($stmt) {
         $stmt->bind_param("i", $userid);
@@ -160,7 +170,9 @@ function getReservation($id) {
     return null;
 }
 
-function getUsers($db) {
+function getUsers() {
+    $db = getDb();
+
     $result = $db->query("SELECT * FROM user
                           ORDER BY Id");
     $array = [];
@@ -189,7 +201,9 @@ function updatePassword($newPassword, $userId) {
     }
 }
 
-function getPassword($db, $userId) {
+function getPassword($userId) {
+    $db = getDb();
+
     $stmt = $db ->prepare("SELECT Password FROM user WHERE Id = ?");
     if ($stmt) {
         $stmt->bind_param("i", $userId);
@@ -210,7 +224,9 @@ function getPassword($db, $userId) {
     return null;
 }
 
-function insertArticle($db, $comment, $filename, $uploadDate) {
+function insertArticle($comment, $filename, $uploadDate) {
+    $db = getDb();
+
     $stmt = $db ->prepare("INSERT article (Comment, Filename, UploadDate)
                            VALUES (?, ?, ?)");
     if ($stmt) {
@@ -225,7 +241,9 @@ function insertArticle($db, $comment, $filename, $uploadDate) {
     }
 }
 
-function getArticles($db) {
+function getArticles() {
+    $db = getDb();
+
     $result = $db->query("SELECT * FROM article
                           ORDER BY UploadDate DESC");
     $array = [];

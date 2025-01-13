@@ -2,7 +2,7 @@
 session_start();
 
 include 'functions.php';
-include 'util.php';
+include 'db-util.php';
 ?>
 
 <!DOCTYPE html>
