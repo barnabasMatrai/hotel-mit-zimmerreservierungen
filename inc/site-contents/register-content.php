@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $firstnameCorrect = test_capitalized($firstname)  ? '' : 'Vorname muss mit einem Grossbuchstaben beginnen!';
         $lastnameCorrect = test_capitalized($lastname)  ? '' : 'Nachname muss mit einem Grossbuchstaben beginnen!';
     
-        $usernameTaken = userExists($username); ? 'Username ist schon vergeben!' : '';
+        $usernameTaken = userExists($username) ? 'Username ist schon vergeben!' : '';
         $passwordSame = is_password_same($password, $repeatPassword) ? '' : 'Das Passwort stimmt nicht überein!';
 
         $fieldsCorrect = !$firstnameCorrect && !$lastnameCorrect && !$usernameTaken && !$passwordSame;

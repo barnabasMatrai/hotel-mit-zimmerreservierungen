@@ -13,7 +13,7 @@
 ?>
 
 <div class="d-flex justify-content-center">
-    <form class="m-2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <form class="float-end m-2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
         <div class="form-group col-auto">
             <label for="status">Anrede:</label>
             <select name="filter" id="status" class="form-control">
@@ -28,7 +28,9 @@
             <button type="submit" class="btn btn-primary my-2">Filter</button>
         </div>
     </form>
-    <ul>
+</div>
+<div class="d-flex justify-content-center">
+    <ul class="border p-2 list-unstyled">
         <?php foreach ($reservations as $reservation): ?>
             <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST")
