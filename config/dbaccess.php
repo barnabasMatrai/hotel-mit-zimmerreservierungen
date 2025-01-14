@@ -6,3 +6,5 @@ return [
     'password' => '[9sG4ByixWik6gfD',
     'database' => 'hotel_reservation'
 ];
+
+?>
