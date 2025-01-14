@@ -1,6 +1,7 @@
 <?php
 $db = NULL;
 
+// Returns the object responsible for connecting to the database
 function getDb() {
     $config = require('..\config\dbaccess.php');
     global $db;
@@ -16,6 +17,7 @@ function getDb() {
     return $db;
 }
 
+// Returns whether a user exists in the database already
 function userExists($username) {
     $db = getDb();
 
@@ -26,6 +28,7 @@ function userExists($username) {
     return (bool) $statement->fetch();
 }
 
+// Returns the user from the username if exists
 function getUserSecure($username) {
     $db = getDb();
 
@@ -41,6 +44,7 @@ function getUserSecure($username) {
     return null;
 }
 
+// Inserts a new user into the database
 function insertUser($title, $firstname, $lastname, $email, $username, $password) {
     $db = getDb();
 
@@ -64,6 +68,7 @@ function insertUser($title, $firstname, $lastname, $email, $username, $password)
     }
 }
 
+// Inserts a new reservation into the database
 function insertReservation($userid, $arrival, $departure, $breakfast, $parking, $cat, $price, $bookingDate) {
     $db = getDb();
 
@@ -84,6 +89,7 @@ function insertReservation($userid, $arrival, $departure, $breakfast, $parking, 
     }
 }
 
+// Returns all reservations from the database if $status is an empty string. Otherwise, returns the reservations which match the $status string
 function getAllReservations($status) {
     $db = getDb();
 
@@ -142,6 +148,7 @@ function getAllReservations($status) {
     return null;
 }
 
+// Returns all reservations for a given $userid
 function getReservations($userid) {
     $db = getDb();
 
@@ -172,6 +179,7 @@ function getReservations($userid) {
     return null;
 }
 
+// Returns a reservation by its $id
 function getReservation($id) {
     $db = getDb();
 
@@ -198,6 +206,7 @@ function getReservation($id) {
     return null;
 }
 
+// Returns all users from the database
 function getUsers() {
     $db = getDb();
 
@@ -211,6 +220,7 @@ function getUsers() {
     return $array;
 }
 
+// Hashes the $newPassword, and updates the password for the given $userId
 function updatePassword($newPassword, $userId) {
     $db = getDb();
 
@@ -229,6 +239,7 @@ function updatePassword($newPassword, $userId) {
     }
 }
 
+// Returns the hashed password from the database for the given $userId
 function getPassword($userId) {
     $db = getDb();
 
@@ -252,6 +263,7 @@ function getPassword($userId) {
     return null;
 }
 
+// Inserts a new article into the database
 function insertArticle($comment, $filename, $uploadDate) {
     $db = getDb();
 
@@ -269,6 +281,7 @@ function insertArticle($comment, $filename, $uploadDate) {
     }
 }
 
+// Returns all articles from the database
 function getArticles() {
     $db = getDb();
 
@@ -282,6 +295,7 @@ function getArticles() {
     return $array;
 }
 
+// Updates the user's (with the given $userId) title, firstName, lastName and email
 function updateUser($userId, $title, $firstName, $lastName, $email) {
     $db = getDb();
 
@@ -298,6 +312,7 @@ function updateUser($userId, $title, $firstName, $lastName, $email) {
     }
 }
 
+// Updates the user's (with the given $userId) isActive status
 function updateIsActive($isActive, $userId) {
     $db = getDb();
 
@@ -314,6 +329,7 @@ function updateIsActive($isActive, $userId) {
     }
 }
 
+// Updates the reservation's (with the given $userId) status
 function updateStatus($status, $id) {
     $db = getDb();
 
@@ -330,6 +346,7 @@ function updateStatus($status, $id) {
     }
 }
 
+// Returns whether a reservation is available. The arrival and departure dates must not be within the range of an existing reservation's dates
 function isReservationAvailable($arrival, $departure) {
     $db = getDb();
     
