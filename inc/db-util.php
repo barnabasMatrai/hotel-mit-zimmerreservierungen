@@ -258,7 +258,7 @@ function getPassword($userId) {
         if ($result->num_rows > 0) {
             $obj = $result->fetch_object();
             return $obj -> Password;
-        }  
+        }
     }
     return null;
 }
@@ -356,6 +356,26 @@ function isReservationAvailable($arrival, $departure) {
     $statement->bind_param("ssss", $arrival, $departure, $arrival, $departure);
     $statement->execute();
     return !(bool) $statement->fetch();
+}
+
+function getUsernameFromReservationId($reservationId) {
+    $db = getDb();
+    
+    $sql = "SELECT UserName FROM user
+            JOIN reservation ON user.Id = reservation.UserId
+            WHERE reservation.Id = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->bind_param("i", $reservationId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+    
+    if ($result->num_rows > 0) {
+        $obj = $result->fetch_object();
+        return $obj -> UserName;
+    }
+
+    return null;
 }
 
 ?>

@@ -9,6 +9,12 @@ function check_and_echo_error($errorMessage) {
     }
 }
 
+/* This function is used to show a success message for a given form input if it ws successful.
+If $errorMessage is an empty string, no error is shown. */
+function echo_success($successMessage) {
+    echo '<div class="alert alert-success text-center"><p class="mb-0">' . $successMessage . '</p></div>';
+}
+
 /* Creates an input tag with the given type, name, id, and default value */
 function create_input_tag($type, $name, $id, $value) {
     return '<input name="' . $name . '" type="' . $type . '" id="' . $id . '" class="form-control" value="' . $value . '" required>';

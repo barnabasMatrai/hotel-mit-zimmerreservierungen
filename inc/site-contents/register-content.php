@@ -34,8 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $userExists = userExists($username);
 
         if (!$userExists) {
-            $welcomeText = "Registration complete";
-            echo '<div class="alert alert-success"><p class="mb-0">' . $welcomeText . '</p></div>';
+            $registerText = "Registration bestätigt";
+            echo_success($registerText);
             insertUser($title, $firstname, $lastname, $email, $username, $password);
         }
     }

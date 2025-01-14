@@ -10,6 +10,7 @@
         $status = $_POST["filter"];
     }
     $reservations = getAllReservations($status);
+    $index = 1;
 ?>
 
 <div class="d-flex justify-content-center">
@@ -29,10 +30,11 @@
         </div>
     </form>
 </div>
-<div class="d-flex justify-content-center">
-    <ul class="border p-2 list-unstyled">
+<div>
+    <ul class="d-flex flex-row flex-wrap justify-content-center border p-2 list-unstyled">
         <?php foreach ($reservations as $reservation): ?>
             <?php
+            $userName = getUsernameFromReservationId($reservation -> Id);
             if ($_SERVER["REQUEST_METHOD"] == "POST")
             {
                 if ($reservation -> Id == $_POST['reservationId']) {
@@ -41,28 +43,48 @@
                 }
             }    
             ?>
-            <li>
-                <p><?= "Anreise: " . $reservation->Arrival; ?></p>
-                <p><?= "Abreise: " . $reservation->Departure; ?></p>
-                <p><?= $reservation->Breakfast ? 'Mit Frühstück' : 'Ohne Frühstück'; ?></p>
-                <p><?= $reservation->Parking ? 'Mit Parkplatz' : 'Ohne Parkplatz'; ?></p>
-                <p><?= $reservation->Cat ? 'Katze' : 'Keine Katze'; ?></p>
-                <p><?= "Status: " . $reservation -> Status ;?></p>
+            <li class="mx-3 my-2">
+                <div>
+                    <div class="d-flex flex-row justify-content-center">
+                        <p class="text-center"><?= $userName ?></p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-center">
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="<?= "#collapseReservation" . $reservation -> Id ?>" aria-expanded="false" aria-controls="<?= "collapseReservation" . $reservation -> Id ?>">
+                            <?php
+                                echo "Reservation " . $index;
+                                $index++;
+                            ?>
+                        </button>
+                    </div>
+                </div>
+                <div class="collapse" id="<?= "collapseReservation" . $reservation -> Id ?>">
+                    <div class="card card-body">
+                        <div>
+                            <p><?= "Anreise: " . $reservation->Arrival; ?></p>
+                            <p><?= "Abreise: " . $reservation->Departure; ?></p>
+                            <p><?= $reservation->Breakfast ? 'Mit Frühstück' : 'Ohne Frühstück'; ?></p>
+                            <p><?= $reservation->Parking ? 'Mit Parkplatz' : 'Ohne Parkplatz'; ?></p>
+                            <p><?= $reservation->Cat ? 'Katze' : 'Keine Katze'; ?></p>
+                            <p><?= "Status: " . $reservation -> Status ;?></p>
+                            <p><?= "Preis: " . $reservation -> Price . "€";?></p>
+                        </div>
+                        <form class="m-2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                            <div class="form-group col-auto">
+                                <label for="<?= "status" . $reservation -> Id?>">Status ändern:</label>
+                                <select name="status" id="<?= "status" . $reservation -> Id?>" class="form-control">
+                                    <option value="neu" <?php select_choice($reservation -> Status, "neu") ?>>neu</option>
+                                    <option value="bestätigt" <?php select_choice($reservation -> Status, "bestätigt") ?>>bestätigt</option>
+                                    <option value="storniert" <?php select_choice($reservation -> Status, "storniert") ?>>storniert</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-auto">
+                                <input type="hidden" name="reservationId" value="<?= $reservation -> Id; ?>">
+                                <button type="submit" class="btn btn-primary my-2">Speichern</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </li>
-            <form class="m-2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <div class="form-group col-auto">
-                    <label for="<?= "status" . $reservation -> Id?>">Status ändern:</label>
-                    <select name="status" id="<?= "status" . $reservation -> Id?>" class="form-control">
-                        <option value="neu" <?php select_choice($reservation -> Status, "neu") ?>>neu</option>
-                        <option value="bestätigt" <?php select_choice($reservation -> Status, "bestätigt") ?>>bestätigt</option>
-                        <option value="storniert" <?php select_choice($reservation -> Status, "storniert") ?>>storniert</option>
-                    </select>
-                </div>
-                <div class="form-group col-auto">
-                    <input type="hidden" name="reservationId" value="<?= $reservation -> Id; ?>">
-                    <button type="submit" class="btn btn-primary my-2">Speichern</button>
-                </div>
-            </form>
         <?php endforeach; ?>
     </ul>
 </div>

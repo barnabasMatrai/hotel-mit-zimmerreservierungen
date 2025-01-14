@@ -1,6 +1,6 @@
 <?php
 
-$allFieldsFilledCorrect = '';
+$inactiveUserCorrect = $allFieldsFilledCorrect = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["password"])) {
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $isUserActive = $user["IsActive"];
                 
                 if (!$isPasswordCorrect || !$isUserActive) {
-                    echo "User not found.";
+                    $inactiveUserCorrect = "Benutzer existiert nicht!";
                 } else {
                     $_SESSION["userid"] = $user["Id"];
                     $_SESSION["title"] = $user["Title"];
@@ -38,6 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: ../sites/login.php");
                     exit("redirect to index");
                 }
+            } else {
+                $inactiveUserCorrect = "Benutzer existiert nicht!";
             }
         }
 
@@ -57,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="form-group col-auto">
             <?php check_and_echo_error($allFieldsFilledCorrect)?>
+            <?php check_and_echo_error($inactiveUserCorrect)?>
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
     </form>

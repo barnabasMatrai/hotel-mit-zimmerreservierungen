@@ -40,6 +40,8 @@
 
                 $bookingDate = date("Y-m-d H:i:s");
 
+                $reservationText = "Reservation bestätigt";
+                echo_success($reservationText);
                 insertReservation($_SESSION['userid'], $arrival, $departure, $breakfast, $parking, $cat, $price, $bookingDate);
             }
         }
