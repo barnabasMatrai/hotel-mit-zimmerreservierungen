@@ -1,6 +1,6 @@
 <?php
 
-$allFieldsFilledCorrect = $oldPasswordCorrect = $newPasswordCorrect = '';
+$allFieldsFilledCorrect = $oldPasswordCorrect = $oldAndNewPasswordCorrect = $newPasswordCorrect = '';
 
 if (isset($_POST["oldpassword"]) and isset($_POST["newpassword"]) and isset($_POST["repeatnewpassword"])) {
     $oldPassword = $_POST["oldpassword"];
@@ -21,9 +21,14 @@ if (isset($_POST["oldpassword"]) and isset($_POST["newpassword"]) and isset($_PO
     if (!is_password_same($newPassword, $repeatNewPassword)) {
         $newPasswordCorrect = "Das neue Passwort stimmt nicht überein!";
     }
+
+    if (is_password_same($oldPassword, $newPassword)) {
+        $oldAndNewPasswordCorrect = "Das alte Passwort ist dasselbe wie das neue Passwort!";
+    }
     
     if (is_password_same($oldPassword, $_SESSION["password"]) and
-        is_password_same($newPassword, $repeatNewPassword)) {
+        is_password_same($newPassword, $repeatNewPassword) and
+        !is_password_same($oldPassword, $newPassword)) {
         updatePassword($newPassword, $_SESSION['userid']);
         $_SESSION["password"] = $newPassword;
         header("Location: ../sites/login.php");
@@ -43,6 +48,7 @@ if (isset($_POST["oldpassword"]) and isset($_POST["newpassword"]) and isset($_PO
         <div class="form-group col-auto">
             <label for="newpassword">Neues Passwort:</label>
             <input name="newpassword" type="password" id="newpassword" class="form-control" required>
+            <?php check_and_echo_error($oldAndNewPasswordCorrect)?>
         </div>
         <div class="form-group col-auto">
             <label for="repeatnewpassword">Neues Passwort wiederholen:</label>
