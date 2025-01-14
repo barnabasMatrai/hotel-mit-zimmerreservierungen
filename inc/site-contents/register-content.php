@@ -4,6 +4,7 @@ if (isset($_SESSION["username"])) {
     exit("redirect to index");
 }
 
+$registeredText = '';
 $title = $firstname = $lastname = $email = $username = $password = $repeatPassword = '';
 $allFieldsFilledCorrect = $firstnameCorrect = $lastnameCorrect = $passwordSame = $usernameTaken = '';
 
@@ -33,6 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $userExists = userExists($username);
 
         if (!$userExists) {
+            $welcomeText = "Registration complete";
+            echo '<div class="alert alert-success"><p class="mb-0">' . $welcomeText . '</p></div>';
             insertUser($title, $firstname, $lastname, $email, $username, $password);
         }
     }
